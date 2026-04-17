@@ -30,7 +30,7 @@ const newsLibrary = {
       id: 'world-politics-update',
       title: "เกาะติดสถานการณ์ตะวันออกกลาง",
       date: "17 April 2026",
-      summary: "สรุปผลกระทบจากการยกเลิกสนามบาห์เรนและซาอุฯ",
+      summary: "สรุปผลกระทบ",
       img: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=1000",
       fullContent: `<p>เนื้อหาข่าวการเมืองฉบับเต็ม...</p>`
     }
