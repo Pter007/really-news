@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Really News Station | Pter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="home-page" class="page active">
+        <header class="hero-section">
+            <div class="profile-container">
+                <img src="https://i.postimg.cc/zGFnDYYg/66bba7e582328afc2ac285ef4b31a85f.jpg" alt="Pter Icon" class="profile-icon">
+                <div class="live-status">ON AIR</div> 
+            </div>
+            <h1>Pter</h1>
+            <p class="subtitle">Broadcaster | ผู้ประกาศข่าวประจำเซิร์ฟเวอร์ Really</p>
+        </header>
+
+        <div id="digital-clock" class="clock" style="text-align: center;">00:00:00 | 00/00/0000</div>
+      
+        <section class="personal-info">
+            <div class="info-badge">⚧ Gender: Female</div>
+            <div class="info-badge">🎂 Age: 17</div>
+            <div class="info-badge">
+                🌍 Lang: 
+                <span title="Native" style="color: #e74c3c;">TH</span> | 
+                <span title="Intermediate">EN</span> | 
+                <span title="Beginner" style="opacity: 0.6;">ES</span>
+            </div>
+        </section>
+      
+        <section class="intro-text">
+            <p>"ผม ปีเตอร์ รับหน้าที่เป็นผู้ประกาศข่าวประจำเซิร์ฟเวอร์ Really เองครับ"</p>
+        </section>
+
+        <h2 class="section-title">TYPES OF NEWS</h2>
+        <section class="news-categories">
+            <div class="category-card" onclick="openPage('politics', 'ข่าวสารโลกปัจจุบัน')">
+                <h3>🌍 ข่าวสารโลกปัจจุบัน</h3>
+                <p>World Politics</p>
+            </div>
+            <div class="category-card" onclick="openPage('economy', 'เศรษฐศาสตร์')">
+                <h3>📈 เศรษฐศาสตร์</h3>
+                <p>Global Economy</p>
+            </div>
+            <div class="category-card" onclick="openPage('motorsport', 'กีฬาความเร็ว')">
+                <h3>🏎️ กีฬาความเร็ว</h3>
+                <p>Motor Sport</p>
+            </div>
+            <div class="category-card" onclick="openPage('space', 'ดาราศาสตร์ & สิ่งใหม่ๆ')">
+                <h3>🔭 ดาราศาสตร์</h3>
+                <p>Astronomy & Discoveries</p>
+            </div>
+        </section>
+
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <span class="ticker-item">🚩 BREAKING: ค้นพบดาวเคราะห์น้อยดวงใหม่ที่มีน้ำ...</span>
+                <span class="ticker-item">🏎️ F1: Max Verstappen คว้า Pole Position อีกครั้ง...</span>
+                <span class="ticker-item">📈 สภาพเศรษฐกิจโลกเริ่มฟื้นตัว...</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>ติดตามและเสนอข่าวสารได้ที่นี่</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1CnZyor7F6/" target="_blank" class="social-btn fb">Facebook</a>
+                <a href="https://www.instagram.com/eyesyamstupid?igsh=Nzd5cmN4MHZqY3Nn" target="_blank" class="social-btn ig">Instagram</a>
+                <a href="https://x.com/Pter_peep08" target="_blank" class="social-btn x">X (Twitter)</a>
+                <a href="https://discord.com/users/672806284730433555" target="_blank" class="social-btn discord">Discord</a>
+            </div>
+        </footer>
+    </div>
+
+    <div id="sub-page" class="page">
+        <div class="sub-page-container">
+            <button class="back-btn" onclick="goBack()">⬅ BACK TO STATION</button>
+            
+            <div class="news-article">
+                <div class="news-header">
+                    <span class="category-tag">LATEST UPDATE</span>
+                    <h1 id="sub-page-title">ชื่อหมวดหมู่</h1>
+                    <div class="news-meta">
+                        <span>By <strong>Pter</strong></span> | 
+                        <span id="article-date">17 April 2026</span>
+                    </div>
+                </div>
+
+                <div class="featured-image">
+                    <img id="news-img" src="https://i.postimg.cc/zv49fRWC/Monza-B-W-Desktop-Wallpaper-1.jpg" alt="News Image">
+                </div>
+
+                <div class="content-box">
+                    <p class="news-lead">รายงานความคืบหน้าล่าสุดเกี่ยวกับ <span id="sub-page-category-name">...</span> ประจำสัปดาห์นี้</p>
+                    <div id="dynamic-content">
+                        <p>กำลังดึงข้อมูลจากฐานข้อมูล Really Server...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
