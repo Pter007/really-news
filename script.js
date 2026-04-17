@@ -95,6 +95,12 @@ function showFullArticle(catId, newsId) {
   const news = newsLibrary[catId].find(n => n.id === newsId);
   const contentArea = document.getElementById('dynamic-content');
   
+  // --- เพิ่มบรรทัดนี้เพื่อลบข้อความ "รายงานความคืบหน้า..." ออก ---
+  const leadText = document.querySelector('.news-lead');
+  if (leadText) {
+    leadText.style.display = 'none'; // สั่งให้ซ่อนข้อความนี้ไปเลย
+  }
+  
   document.getElementById('news-img').src = news.img;
   
   contentArea.innerHTML = `
