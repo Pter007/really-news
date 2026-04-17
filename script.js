@@ -60,30 +60,31 @@ function openPage(categoryId, categoryTitle) {
     newsImg.src = "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000"; 
   }
 
-  // ดึงรายการข่าวมาแสดง
-  const newsList = newsLibrary[categoryId] || [];
-  const contentArea = document.getElementById('dynamic-content');
-  
-  let html = '';
-  if (newsList.length > 0) {
-    newsList.forEach(news => {
-      html += `
-        <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
-          <div class="feed-img">
-            <img src="${news.img}" alt="news">
-          </div>
-          <div class="feed-info">
-            <span class="feed-date">${news.date}</span>
-            <h3>${news.title}</h3>
-            <p>${news.summary}</p>
-            <span class="read-more-btn">กดเพื่ออ่านต่อ...</span>
-          </div>
+// ดึงรายการข่าวมาแสดง
+const newsList = newsLibrary[categoryId] || [];
+const contentArea = document.getElementById('dynamic-content');
+
+let html = '';
+if (newsList.length > 0) {
+  // --- แก้ไขบรรทัดนี้: เพิ่ม [...newsList].reverse().forEach ---
+  [...newsList].reverse().forEach(news => {
+    html += `
+      <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
+        <div class="feed-img">
+          <img src="${news.img}" alt="news">
         </div>
-      `;
-    });
-  } else {
-    html = '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
-  }
+        <div class="feed-info">
+          <span class="feed-date">${news.date}</span>
+          <h3>${news.title}</h3>
+          <p>${news.summary}</p>
+          <span class="read-more-btn">กดเพื่ออ่านต่อ...</span>
+        </div>
+      </div>
+    `;
+  });
+} else {
+  html = '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
+}
   
   contentArea.innerHTML = html;
   window.scrollTo(0, 0);
