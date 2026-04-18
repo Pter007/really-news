@@ -1,4 +1,20 @@
-// 1. คลังข่าวสาร แบ่งตามหมวดหมู่ (ใส่เนื้อหาข่าวเต็มของคุณที่นี่)
+// --- ส่วนที่ 1: ระบบจัดการการกดย้อนกลับ ---
+window.onload = () => {
+    history.replaceState({ page: 'home' }, 'Home');
+};
+
+window.onpopstate = function(event) {
+    if (event.state) {
+        if (event.state.page === 'home') {
+            document.getElementById('sub-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        } else if (event.state.page === 'category') {
+            openPage(event.state.id, event.state.title, true);
+        }
+    }
+};
+
+// --- ส่วนที่ 2: คลังข่าวสาร ---
 const newsLibrary = {
   'motorsport': [
     {
@@ -16,62 +32,61 @@ const newsLibrary = {
         <div class="quote-card">"บางทีผมควรมีความสุขที่ได้ใช้ชีวิตอยู่กับครอบครัวและเพื่อนฝูงมากกว่ากีฬาที่ไม่มีความสนุกของมันอีกแล้ว"</div>
       `
     },
-{
-  id: 'nurburgring-qualifiers-2026',
-  title: "ตารางแข่งขัน ADAC 24h Nürburgring Qualifiers ประจำสัปดาห์นี้",
-  date: "18 April 2026",
-  summary: "เกาะติดตารางแข่งรอบคัดเลือกที่สนาม Nürburgring พร้อมอัปเดตสถานการณ์ทีม Max หลังโดน DSQ เพราะเปลี่ยนยางเกินกฎ!",
-  img: "https://i.postimg.cc/brRGjtBd/346214-w620-h500.jpg", // ใช้รูป Banner Motorsport ของคุณ
-  fullContent: `
-    <p class="news-lead">เข้าสู่สัปดาห์แห่งความมันส์ในสนามระดับตำนาน Nürburgring กับรายการ Qualifiers เพื่อเตรียมความพร้อมก่อนศึกใหญ่ในเดือนพฤษภาคม</p>
-    
-    <h3>🗓️ ตารางการแข่งขัน (อิงตามเวลาไทย)</h3>
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; border-collapse: collapse; margin: 15px 0; color: #ddd; background: #222;">
-        <tr style="background: #e67e22; color: white;">
-          <th style="padding: 10px; border: 1px solid #444; text-align: left;">วัน / เวลา</th>
-          <th style="padding: 10px; border: 1px solid #444; text-align: left;">รายการ</th>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding: 8px; background: #333; font-weight: bold; color: #e67e22;">วันเสาร์ที่ 18 เมษายน</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">13:30 - 15:00 น.</td>
-          <td style="padding: 10px; border: 1px solid #444;">Qualifying Race 1</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">22:30 - 02:30 น.</td>
-          <td style="padding: 10px; border: 1px solid #444;">Race 1</td>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding: 8px; background: #333; font-weight: bold; color: #e67e22;">วันอาทิตย์ที่ 19 เมษายน</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">13:15 - 14:45 น.</td>
-          <td style="padding: 10px; border: 1px solid #444;">Qualifying Race 2</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">15:40 - 16:40 น.</td>
-          <td style="padding: 10px; border: 1px solid #444;">Top Qualifying</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">18:00 - 22:00 น.</td>
-          <td style="padding: 10px; border: 1px solid #444;">Race 2</td>
-        </tr>
-      </table>
-    </div>
+    {
+      id: 'nurburgring-qualifiers-2026',
+      title: "ตารางแข่งขัน ADAC 24h Nürburgring Qualifiers ประจำสัปดาห์นี้",
+      date: "18 April 2026",
+      summary: "เกาะติดตารางแข่งรอบคัดเลือกที่สนาม Nürburgring พร้อมอัปเดตสถานการณ์ทีม Max หลังโดน DSQ เพราะเปลี่ยนยางเกินกฎ!",
+      img: "https://i.postimg.cc/brRGjtBd/346214-w620-h500.jpg",
+      fullContent: `
+        <p class="news-lead">เข้าสู่สัปดาห์แห่งความมันส์ในสนามระดับตำนาน Nürburgring กับรายการ Qualifiers เพื่อเตรียมความพร้อมก่อนศึกใหญ่ในเดือนพฤษภาคม</p>
+        
+        <h3>🗓️ ตารางการแข่งขัน (อิงตามเวลาไทย)</h3>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; margin: 15px 0; color: #ddd; background: #222;">
+            <tr style="background: #e67e22; color: white;">
+              <th style="padding: 10px; border: 1px solid #444; text-align: left;">วัน / เวลา</th>
+              <th style="padding: 10px; border: 1px solid #444; text-align: left;">รายการ</th>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding: 8px; background: #333; font-weight: bold; color: #e67e22;">วันเสาร์ที่ 18 เมษายน</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">13:30 - 15:00 น.</td>
+              <td style="padding: 10px; border: 1px solid #444;">Qualifying Race 1</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">22:30 - 02:30 น.</td>
+              <td style="padding: 10px; border: 1px solid #444;">Race 1</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding: 8px; background: #333; font-weight: bold; color: #e67e22;">วันอาทิตย์ที่ 19 เมษายน</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">13:15 - 14:45 น.</td>
+              <td style="padding: 10px; border: 1px solid #444;">Qualifying Race 2</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">15:40 - 16:40 น.</td>
+              <td style="padding: 10px; border: 1px solid #444;">Top Qualifying</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">18:00 - 22:00 น.</td>
+              <td style="padding: 10px; border: 1px solid #444;">Race 2</td>
+            </tr>
+          </table>
+        </div>
 
-    <h3>🟠 บทวิเคราะห์: บทเรียนราคาแพงจาก "ยางชุดที่ 7"</h3>
-    <p>แม้ผลงานในสนามช่วงปลายเดือนมีนาคมที่ผ่านมาจะทำออกมาได้ดี แต่ทีมกลับต้องเผชิญกับฝันร้ายเมื่อถูกตัดสิน <strong>DSQ (Disqualified)</strong> เนื่องจากทำผิดกฎเรื่องการใช้ยาง</p>
-    
-    <div class="quote-card" style="border-left-color: #e67e22;">
-      <strong>กฎเหล็ก:</strong> ในแต่ละรายการ ทีมสามารถเปลี่ยนยางได้ไม่เกิน 6 ชุด แต่ความผิดพลาดในการสื่อสารทำให้ทีมเผลอเปลี่ยนไปถึง 7 ชุด ส่งผลให้โดนปรับแพ้ทันที
-    </div>
+        <h3>🟠 บทวิเคราะห์: บทเรียนราคาแพงจาก "ยางชุดที่ 7"</h3>
+        <p>แม้ผลงานในสนามช่วงปลายเดือนมีนาคมที่ผ่านมาจะทำออกมาได้ดี แต่ทีมกลับต้องเผชิญกับฝันร้ายเมื่อถูกตัดสิน <strong>DSQ (Disqualified)</strong> เนื่องจากทำผิดกฎเรื่องการใช้ยาง</p>
+        
+        <div class="quote-card" style="border-left-color: #e67e22;">
+          <strong>กฎเหล็ก:</strong> ในแต่ละรายการ ทีมสามารถเปลี่ยนยางได้ไม่เกิน 6 ชุด แต่ความผิดพลาดในการสื่อสารทำให้ทีมเผลอเปลี่ยนไปถึง 7 ชุด ส่งผลให้โดนปรับแพ้ทันที
+        </div>
 
-    <p>แม้จะโดนตัดสิทธิ์แม็กซ์และทีมยังพร้อมที่จะสู้ต่อโดยไม่หวั่นเกรงกับรถ <strong>Mercedes-AMG GT3 Evo </strong>ที่ทางเมอร์เซเดสยื่นข้อเสนอให้เจ้าตัวเองเลย
-</p>
-  `
-}
+        <p>แม้จะโดนตัดสิทธิ์แม็กซ์และทีมยังพร้อมที่จะสู้ต่อโดยไม่หวั่นเกรงกับรถ <strong>Mercedes-AMG GT3 Evo </strong>ที่ทางเมอร์เซเดสยื่นข้อเสนอให้เจ้าตัวเองเลย</p>
+      `
+    }
   ],
   'politics': [
     {
@@ -83,66 +98,66 @@ const newsLibrary = {
       fullContent: `<p>เนื้อหาข่าวการเมืองฉบับเต็ม...</p>`
     }
   ],
-  'economy': [{
-  id: 'thai-oil-prices-17apr26',
-  title: "อัปเดตราคาน้ำมันวันนี้ ทุกปั๊มทั่วไทย",
-  date: "17 April 2026",
-  summary: "เช็กราคาน้ำมันล่าสุดจาก PTT, บางจาก, เชลล์ และค่ายอื่นๆ ทั่วประเทศ...",
-  img: "https://i.postimg.cc/kMfLPYn2/img-c988f5dc.jpg", // รูปปั๊มน้ำมันเท่ๆ
-  fullContent: `
-    <p class="news-lead">รายงานสถานะราคาน้ำมันขายปลีกในเขตกรุงเทพฯ และปริมณฑล ประจำวันที่ 17 เมษายน 2569</p>
-    
-    <h3>⛽ ปั๊ม PTT & บางจาก (ราคามาตรฐาน)</h3>
-    <p>ราคาน้ำมันส่วนใหญ่ยังคงทรงตัว โดยมีรายละเอียดดังนี้:</p>
-    <div class="quote-card">
-      <strong>แก๊สโซฮอล์ 95:</strong> 42.45 บาท/ลิตร<br>
-      <strong>แก๊สโซฮอล์ 91:</strong> 42.08 บาท/ลิตร<br>
-      <strong>ดีเซล:</strong> 42.90 บาท/ลิตร
-    </div>
+  'economy': [
+    {
+      id: 'thai-oil-prices-17apr26',
+      title: "อัปเดตราคาน้ำมันวันนี้ ทุกปั๊มทั่วไทย",
+      date: "17 April 2026",
+      summary: "เช็กราคาน้ำมันล่าสุดจาก PTT, บางจาก, เชลล์ และค่ายอื่นๆ ทั่วประเทศ...",
+      img: "https://i.postimg.cc/kMfLPYn2/img-c988f5dc.jpg",
+      fullContent: `
+        <p class="news-lead">รายงานสถานะราคาน้ำมันขายปลีกในเขตกรุงเทพฯ และปริมณฑล ประจำวันที่ 17 เมษายน 2569</p>
+        
+        <h3>⛽ ปั๊ม PTT & บางจาก (ราคามาตรฐาน)</h3>
+        <p>ราคาน้ำมันส่วนใหญ่ยังคงทรงตัว โดยมีรายละเอียดดังนี้:</p>
+        <div class="quote-card">
+          <strong>แก๊สโซฮอล์ 95:</strong> 42.45 บาท/ลิตร<br>
+          <strong>แก๊สโซฮอล์ 91:</strong> 42.08 บาท/ลิตร<br>
+          <strong>ดีเซล:</strong> 42.90 บาท/ลิตร
+        </div>
 
-    <h3>📊 ตารางเปรียบเทียบราคาแยกตามแบรนด์</h3>
-    <p>ข้อมูลราคาน้ำมันจากค่ายต่างๆ (หน่วย: บาท/ลิตร)</p>
-    
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; border-collapse: collapse; margin-top: 10px; color: #ddd;">
-        <tr style="background: #e74c3c; color: white;">
-          <th style="padding: 10px; border: 1px solid #444;">ประเภทน้ำมัน</th>
-          <th style="padding: 10px; border: 1px solid #444;">PTT/BCP</th>
-          <th style="padding: 10px; border: 1px solid #444;">Shell</th>
-          <th style="padding: 10px; border: 1px solid #444;">Caltex</th>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">แก๊สโซฮอล์ 95</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.45</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.95</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.45</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">แก๊สโซฮอล์ 91</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.08</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.33</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.08</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #444;">ดีเซล พรีเมียม</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">64.80</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">67.84</td>
-          <td style="padding: 10px; border: 1px solid #444; text-align: center;">65.30</td>
-        </tr>
-      </table>
-    </div>
+        <h3>📊 ตารางเปรียบเทียบราคาแยกตามแบรนด์</h3>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; margin-top: 10px; color: #ddd;">
+            <tr style="background: #e74c3c; color: white;">
+              <th style="padding: 10px; border: 1px solid #444;">ประเภทน้ำมัน</th>
+              <th style="padding: 10px; border: 1px solid #444;">PTT/BCP</th>
+              <th style="padding: 10px; border: 1px solid #444;">Shell</th>
+              <th style="padding: 10px; border: 1px solid #444;">Caltex</th>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">แก๊สโซฮอล์ 95</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.45</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.95</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.45</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">แก๊สโซฮอล์ 91</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.08</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.33</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">42.08</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #444;">ดีเซล พรีเมียม</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">64.80</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">67.84</td>
+              <td style="padding: 10px; border: 1px solid #444; text-align: center;">65.30</td>
+            </tr>
+          </table>
+        </div>
 
-    <p style="margin-top: 20px;">*หมายเหตุ: ราคาดังกล่าวเป็นราคาขายปลีกในกรุงเทพมหานครและปริมณฑลเท่านั้น อาจมีความแตกต่างกันในแต่ละพื้นที่</p>
-    
-    <div class="quote-card" style="border-left-color: #3498db;">
-      <strong>มุมมองนักวิเคราะห์:</strong> ราคาน้ำมันที่ยังทรงตัวในระดับสูง ส่งผลโดยตรงต่อค่าขนส่งในสัปดาห์นี้ ควรวางแผนการเดินทางและเติมน้ำมันให้พร้อมครับ
-    </div>
-  `
-}],
-'space': [
+        <p style="margin-top: 20px;">*หมายเหตุ: ราคาดังกล่าวเป็นราคาขายปลีกในกรุงเทพมหานครและปริมณฑลเท่านั้น อาจมีความแตกต่างกันในแต่ละพื้นที่</p>
+        
+        <div class="quote-card" style="border-left-color: #3498db;">
+          <strong>มุมมองนักวิเคราะห์:</strong> ราคาน้ำมันที่ยังทรงตัวในระดับสูง ส่งผลโดยตรงต่อค่าขนส่งในสัปดาห์นี้ ควรวางแผนการเดินทางและเติมน้ำมันให้พร้อมครับ
+        </div>
+      `
+    }
+  ],
+  'space': [
     {
       id: 'comet-c2025-r3-last-visit',
-      title: "การปรากฏตัวครั้งสุดท้าย: ดาวหาง C/2025\ R3 เตรียมลาจากระบบสุริยะตลอดกาล",
+      title: "การปรากฏตัวครั้งสุดท้าย: ดาวหาง C/2025 R3 เตรียมลาจากระบบสุริยะตลอดกาล",
       date: "17 April 2026",
       summary: "นักดาราศาสตร์ชี้ดาวหางคาบยาวเตรียมพ้นระบบสุริยะถาวร หลังรับแรงเหวี่ยงจากดาวพฤหัสบดี...",
       img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1000",
@@ -150,23 +165,23 @@ const newsLibrary = {
         <p class="news-lead">การอำลาครั้งสุดท้ายของวัตถุโบราณชิ้นนี้ ก่อนที่จะถูกดีดออกจากระบบสุริยะอย่างถาวรในวันที่ 27 เมษายนนี้</p>
         
         <h3>1. ปูมหลังและการโคจรข้ามกาลเวลา</h3>
-        <p>ดาวหาง C/2025\ R3 (Pan-STARRS) เป็นดาวหางคาบยาวที่มีต้นกำเนิดจาก <strong>เมฆออร์ต (Oort Cloud)</strong> มีคาบการโคจรถึง 170,000 ปี การกลับมาครั้งนี้จึงเปรียบเสมือนแคปซูลกาลเวลาจากยุคก่อตัวของระบบสุริยะเมื่อ 4.6 พันล้านปีก่อน</p>
+        <p>ดาวหาง C/2025 R3 (Pan-STARRS) เป็นดาวหางคาบยาวที่มีต้นกำเนิดจาก <strong>เมฆออร์ต (Oort Cloud)</strong> มีคาบการโคจรถึง 170,000 ปี การกลับมาครั้งนี้จึงเปรียบเสมือนแคปซูลกาลเวลาจากยุคก่อตัวของระบบสุริยะเมื่อ 4.6 พันล้านปีก่อน</p>
 
         <h3>2. ปรากฏการณ์ 'การเหวี่ยงด้วยแรงโน้มถ่วง'</h3>
         <div class="quote-card">
-          <strong>Slingshot Effect:</strong> การเดินทางผ่านดาวพฤหัสบดีส่งผลให้เกิด Gravitational Assist เพิ่มความเร็วของดาวหางจนทะลุความเร็วหลุดพ้น (Escape\ Velocity) เปลี่ยนวงโคจรเป็นเส้นโค้งไฮเพอร์โบลา และมุ่งหน้าสู่ห้วงอวกาศระหว่างดาวโดยไม่กลับมาอีก
+          <strong>Slingshot Effect:</strong> การเดินทางผ่านดาวพฤหัสบดีส่งผลให้เกิด Gravitational Assist เพิ่มความเร็วของดาวหางจนทะลุความเร็วหลุดพ้น (Escape Velocity) เปลี่ยนวงโคจรเป็นเส้นโค้งไฮเพอร์โบลา และมุ่งหน้าสู่ห้วงอวกาศระหว่างดาวโดยไม่กลับมาอีก
         </div>
 
         <h3>3. องค์ประกอบทางเคมี</h3>
-        <p>นิวเคลียสประกอบด้วยน้ำแข็ง (Water\ ice) คลุกเคล้ากับฝุ่นและก๊าซแช่แข็ง เช่น:</p>
+        <p>นิวเคลียสประกอบด้วยน้ำแข็ง (Water ice) คลุกเคล้ากับฝุ่นและก๊าซแช่แข็ง เช่น:</p>
         <ul>
-          <li>คาร์บอนมอนอกไซด์ (CO) และ คาร์บอนไดออกไซด์ (CO_2)</li>
-          <li>มีเทน (CH_4) และ แอมโมเนีย (NH_3)</li>
+          <li>คาร์บอนมอนอกไซด์ (CO) และ คาร์บอนไดออกไซด์ (CO2)</li>
+          <li>มีเทน (CH4) และ แอมโมเนีย (NH3)</li>
         </ul>
         <p>การเรืองแสงสีเขียวที่ส่วนโคมาเกิดจากปฏิกิริยาของ <strong>โมเลกุลคาร์บอนคู่ (Diatomic carbon)</strong> ต่อรังสี UV</p>
 
         <h3>4. หางดาวหาง</h3>
-        <p>ลมสุริยะ (Solar\ wind) จะทำให้เราสังเกตเห็นหาง 2 ประเภท:</p>
+        <p>ลมสุริยะ (Solar wind) จะทำให้เราสังเกตเห็นหาง 2 ประเภท:</p>
         <ul>
           <li><strong>หางฝุ่น (Dust tail):</strong> โค้งสยายตามทิศทางการเคลื่อนที่</li>
           <li><strong>หางไอออน (Ion tail):</strong> ก๊าซมีประจุไฟฟ้าที่ชี้ตรงข้ามกับดวงอาทิตย์เสมอ</li>
@@ -176,87 +191,74 @@ const newsLibrary = {
   ]
 };
 
-// 2. ฟังก์ชันเปิด "หน้าพาดหัวข่าวทั้งหมด" และเปลี่ยนรูป Banner
-function openPage(categoryId, categoryTitle) {
-  // สลับหน้าจอ
-  document.getElementById('home-page').classList.remove('active');
-  document.getElementById('sub-page').classList.add('active');
-  
-  // เปลี่ยนชื่อหัวข้อ
-  document.getElementById('sub-page-title').innerText = categoryTitle;
+// --- ส่วนที่ 3: ระบบเปิดหน้ารวมข่าว ---
+function openPage(categoryId, categoryTitle, isBack = false) {
+    document.getElementById('home-page').classList.remove('active');
+    document.getElementById('sub-page').classList.add('active');
+    document.getElementById('sub-page-title').innerText = categoryTitle;
 
-  // --- เปลี่ยนรูป Banner ตามหมวดหมู่ ---
-  const newsImg = document.getElementById('news-img');
-  if (categoryId === 'motorsport') {
-    newsImg.src = "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg"; 
-  } else if (categoryId === 'space') {
-    newsImg.src = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000"; 
-  } else if (categoryId === 'politics') {
-    newsImg.src = "https://i.postimg.cc/Y04BHLbC/hq720-(2).jpg"; 
-  } else if (categoryId === 'economy') {
-    newsImg.src = "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000"; 
-  }
+    if (!isBack) {
+        history.pushState({ page: 'category', id: categoryId, title: categoryTitle }, categoryTitle);
+    }
 
-// ดึงรายการข่าวมาแสดง
-const newsList = newsLibrary[categoryId] || [];
-const contentArea = document.getElementById('dynamic-content');
+    const newsImg = document.getElementById('news-img');
+    const banners = {
+        'motorsport': "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg",
+        'space': "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000",
+        'politics': "https://i.postimg.cc/Y04BHLbC/hq720-(2).jpg",
+        'economy': "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000"
+    };
+    newsImg.src = banners[categoryId] || banners['motorsport'];
 
-let html = '';
-if (newsList.length > 0) {
-  // --- แก้ไขบรรทัดนี้: เพิ่ม [...newsList].reverse().forEach ---
-  [...newsList].reverse().forEach(news => {
-    html += `
-      <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
-        <div class="feed-img">
-          <img src="${news.img}" alt="news">
-        </div>
-        <div class="feed-info">
-          <span class="feed-date">${news.date}</span>
-          <h3>${news.title}</h3>
-          <p>${news.summary}</p>
-          <span class="read-more-btn">กดเพื่ออ่านต่อ...</span>
-        </div>
-      </div>
-    `;
-  });
-} else {
-  html = '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
-}
-  
-  contentArea.innerHTML = html;
-  window.scrollTo(0, 0);
+    const newsList = newsLibrary[categoryId] || [];
+    const contentArea = document.getElementById('dynamic-content');
+    
+    let html = '';
+    if (newsList.length > 0) {
+        [...newsList].reverse().forEach(news => {
+            html += `
+                <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
+                    <div class="feed-img"><img src="${news.img}"></div>
+                    <div class="feed-info">
+                        <span class="feed-date">${news.date}</span>
+                        <h3>${news.title}</h3>
+                        <p>${news.summary}</p>
+                        <span class="read-more-btn">กดเพื่ออ่านต่อ...</span>
+                    </div>
+                </div>`;
+        });
+    } else {
+        html = '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
+    }
+    contentArea.innerHTML = html;
+    window.scrollTo(0, 0);
 }
 
-// 3. ฟังก์ชันเปิด "เนื้อหาข่าวฉบับเต็ม"
-function showFullArticle(catId, newsId) {
-  const news = newsLibrary[catId].find(n => n.id === newsId);
-  const contentArea = document.getElementById('dynamic-content');
-  
-  // --- เพิ่มบรรทัดนี้เพื่อลบข้อความ "รายงานความคืบหน้า..." ออก ---
-  const leadText = document.querySelector('.news-lead');
-  if (leadText) {
-    leadText.style.display = 'none'; // สั่งให้ซ่อนข้อความนี้ไปเลย
-  }
-  
-  document.getElementById('news-img').src = news.img;
-  
-  contentArea.innerHTML = `
-    <div class="full-article">
-      <div class="article-meta">${news.date} | โดย Pter</div>
-      <div class="article-body">${news.fullContent}</div>
-      <button class="back-to-list" onclick="openPage('${catId}', '${document.getElementById('sub-page-title').innerText}')">⬅ กลับไปหน้ารวมข่าว</button>
-    </div>
-  `;
-  window.scrollTo(0, 0);
+// --- ส่วนที่ 4: ระบบเปิดข่าวฉบับเต็ม ---
+function showFullArticle(catId, newsId, isBack = false) {
+    const news = newsLibrary[catId].find(n => n.id === newsId);
+    const contentArea = document.getElementById('dynamic-content');
+    
+    if (!isBack) {
+        history.pushState({ page: 'article', catId, newsId }, news.title);
+    }
+
+    document.getElementById('news-img').src = news.img;
+    contentArea.innerHTML = `
+        <div class="full-article">
+            <div class="article-meta">${news.date} | โดย Pter</div>
+            <div class="article-body">${news.fullContent}</div>
+            <button class="back-to-list" onclick="goBack()">⬅ กลับไปหน้ารวมข่าว</button>
+        </div>`;
+    window.scrollTo(0, 0);
 }
 
-// 4. ฟังก์ชันกลับหน้าหลัก
+// --- ส่วนที่ 5: ปุ่มกดย้อนกลับ ---
 function goBack() {
-  document.getElementById('sub-page').classList.remove('active');
-  document.getElementById('home-page').classList.add('active');
+  history.back(); // สั่งให้เบราว์เซอร์ถอยหลัง 1 สเต็ป (เข้ากับระบบ History ของเราพอดี)
 }
 
-// 5. ระบบนาฬิกา
+// --- ส่วนที่ 6: ระบบนาฬิกา ---
 function updateClock() {
     const now = new Date();
     const time = now.toLocaleTimeString();
