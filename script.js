@@ -86,7 +86,46 @@ const newsLibrary = {
 
         <p>แม้จะโดนตัดสิทธิ์แม็กซ์และทีมยังพร้อมที่จะสู้ต่อโดยไม่หวั่นเกรงกับรถ <strong>Mercedes-AMG GT3 Evo </strong>ที่ทางเมอร์เซเดสยื่นข้อเสนอให้เจ้าตัวเองเลย</p>
       `
-    }
+    },
+    {
+      id: 'max-penalty-nurburgring-2026',
+      title: "Max Verstappen และทีมโดนปรับโทษในการแข่งขัน ADAC 24h Nürburgring Qualifiers",
+      date: "18 April 2026",
+      summary: "ทีม Verstappen Racing โดนปรับกริด 3 อันดับหลัง Lucas Auer คำนวนระยะห่างผิดพลาดจนเกิดอุบัติเหตุ ทำให้ Max ต้องเริ่มจากอันดับ 9 คืนนี้",
+      img: "https://i.postimg.cc/DzTH71Gc/e4befb12c90e13bda4f6050c3f4523f6.jpg",
+      fullContent: `
+        <p>ทีม Verstappen Racing (รถ Mercedes-AMG GT3 หมายเลข 3) โดนปรับกริด 3 อันดับหลัง Lucas Auer พยายามจะแซงรถ Porsche Caymen หมายเลข 941 ทว่ากลับคำนวนระยะห่างผิดพลาดจึงส่งผลให้รถของอีกฝ่ายเกิดอุบัติเหตุหมุนเคว้งกลางแทร็ก แม้ว่าภายหลังลูคัสได้ทำการเข้าไปเคลียร์ใจกับนักขับดังกล่าวแล้วแต่ทว่าคณะกรรมการยังคงปรับโทษเช่นเดิม</p>
+        <p>แม้ Max Verstappen จะสามารถทำเวลาได้และจบรอบควอลิฟายเป็นอันดับที่ 6 ได้ แต่กลับถูกปรับโทษจนต้องเริ่มออกสตาร์ทจากกริดที่ 9 ในคืนนี้ (22:00 - 02:00 น.)</p>
+        <p>ลูกพี่เจอศึกหนักอีกแล้วด้อมส้มเอาใจช่วยให้ผ่านพ้นไปได้ด้วยดีเหมือนเดิม</p>
+       <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 12px;">
+      <a href="https://www.youtube.com/live/ukz3kwwWcRc?si=EcgsMvHQkAOMFOcj" target="_blank" 
+         style="display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; 
+                background: linear-gradient(45deg, #ff0000, #cc0000); color: white; padding: 15px; 
+                border-radius: 12px; font-weight: bold; border: 1px solid #ff4d4d; 
+                box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3); transition: all 0.3s ease;">
+         <span style="display: inline-block; width: 10px; height: 10px; background: white; border-radius: 50%; animation: pulse 1.5s infinite;"></span>
+         LIVE MAIN BROADCAST
+      </a>
+
+      <a href="https://www.youtube.com/live/tZ6R-kruUYs?si=5HvIPUQ89KyjvwBk" target="_blank" 
+         style="display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; 
+                background: linear-gradient(45deg, #f39c12, #d35400); color: white; padding: 15px; 
+                border-radius: 12px; font-weight: bold; border: 1px solid #ffbd58;
+                box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); transition: all 0.3s ease;">
+         <img src="https://i.postimg.cc/MVOrange" style="width: 20px; height: 20px; border-radius: 50%;" onerror="this.style.display='none'">
+         TEAM VERSTAPPEN CAM
+      </a>
+    </div>
+
+    <style>
+      @keyframes pulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.3; transform: scale(1.2); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+    </style>
+  `
+},
   ],
   'politics': [
     {
@@ -218,6 +257,12 @@ function openPage(categoryId, categoryTitle, isBack = false) {
         [...newsList].reverse().forEach(news => {
             html += `
                 <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
+let html = `<p class="news-lead">รวบรวมเหตุการณ์และบทวิเคราะห์ล่าสุดเกี่ยวกับ <span>${categoryTitle}</span></p>`;
+    
+    if (newsList.length > 0) {
+        [...newsList].reverse().forEach(news => {
+            html += `
+                <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
                     <div class="feed-img"><img src="${news.img}"></div>
                     <div class="feed-info">
                         <span class="feed-date">${news.date}</span>
@@ -228,12 +273,11 @@ function openPage(categoryId, categoryTitle, isBack = false) {
                 </div>`;
         });
     } else {
-        html = '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
+        html += '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
     }
     contentArea.innerHTML = html;
     window.scrollTo(0, 0);
 }
-
 // --- ส่วนที่ 4: ระบบเปิดข่าวฉบับเต็ม ---
 function showFullArticle(catId, newsId, isBack = false) {
     const news = newsLibrary[catId].find(n => n.id === newsId);
