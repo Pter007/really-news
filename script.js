@@ -16,21 +16,69 @@ const newsLibrary = {
         <div class="quote-card">"บางทีผมควรมีความสุขที่ได้ใช้ชีวิตอยู่กับครอบครัวและเพื่อนฝูงมากกว่ากีฬาที่ไม่มีความสนุกของมันอีกแล้ว"</div>
       `
     },
-    {
-      id: 'f1-miami-update',
-      title: "เตรียมความพร้อมก่อนสนาม Miami GP",
-      date: "17 April 2026",
-      summary: "สรุปการปรับเปลี่ยนกฎ Active Aero ล่าสุดก่อนเริ่มซ้อมที่สหรัฐฯ",
-      img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1000",
-      fullContent: `<p>เนื้อหาข่าวฉบับเต็มของสนามไมอามี่...</p>`
-    }
+{
+  id: 'nurburgring-qualifiers-2026',
+  title: "ตารางแข่งขัน ADAC 24h Nürburgring Qualifiers ประจำสัปดาห์นี้",
+  date: "18 April 2026",
+  summary: "เกาะติดตารางแข่งรอบคัดเลือกที่สนาม Nürburgring พร้อมอัปเดตสถานการณ์ทีม Max หลังโดน DSQ เพราะเปลี่ยนยางเกินกฎ!",
+  img: "https://i.postimg.cc/brRGjtBd/346214-w620-h500.jpg", // ใช้รูป Banner Motorsport ของคุณ
+  fullContent: `
+    <p class="news-lead">เข้าสู่สัปดาห์แห่งความมันส์ในสนามระดับตำนาน Nürburgring กับรายการ Qualifiers เพื่อเตรียมความพร้อมก่อนศึกใหญ่ในเดือนพฤษภาคม</p>
+    
+    <h3>🗓️ ตารางการแข่งขัน (อิงตามเวลาไทย)</h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; margin: 15px 0; color: #ddd; background: #222;">
+        <tr style="background: #e67e22; color: white;">
+          <th style="padding: 10px; border: 1px solid #444; text-align: left;">วัน / เวลา</th>
+          <th style="padding: 10px; border: 1px solid #444; text-align: left;">รายการ</th>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding: 8px; background: #333; font-weight: bold; color: #e67e22;">วันเสาร์ที่ 18 เมษายน</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #444;">13:30 - 15:00 น.</td>
+          <td style="padding: 10px; border: 1px solid #444;">Qualifying Race 1</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #444;">22:30 - 02:30 น.</td>
+          <td style="padding: 10px; border: 1px solid #444;">Race 1</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding: 8px; background: #333; font-weight: bold; color: #e67e22;">วันอาทิตย์ที่ 19 เมษายน</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #444;">13:15 - 14:45 น.</td>
+          <td style="padding: 10px; border: 1px solid #444;">Qualifying Race 2</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #444;">15:40 - 16:40 น.</td>
+          <td style="padding: 10px; border: 1px solid #444;">Top Qualifying</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #444;">18:00 - 22:00 น.</td>
+          <td style="padding: 10px; border: 1px solid #444;">Race 2</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>🟠 บทวิเคราะห์: บทเรียนราคาแพงจาก "ยางชุดที่ 7"</h3>
+    <p>แม้ผลงานในสนามช่วงปลายเดือนมีนาคมที่ผ่านมาจะทำออกมาได้ดี แต่ทีมกลับต้องเผชิญกับฝันร้ายเมื่อถูกตัดสิน <strong>DSQ (Disqualified)</strong> เนื่องจากทำผิดกฎเรื่องการใช้ยาง</p>
+    
+    <div class="quote-card" style="border-left-color: #e67e22;">
+      <strong>กฎเหล็ก:</strong> ในแต่ละรายการ ทีมสามารถเปลี่ยนยางได้ไม่เกิน 6 ชุด แต่ความผิดพลาดในการสื่อสารทำให้ทีมเผลอเปลี่ยนไปถึง 7 ชุด ส่งผลให้โดนปรับแพ้ทันที
+    </div>
+
+    <p>แม้จะโดนตัดสิทธิ์แม็กซ์และทีมยังพร้อมที่จะสู้ต่อโดยไม่หวั่นเกรงกับรถ <strong>Mercedes-AMG GT3 Evo </strong>ที่ทางเมอร์เซเดสยื่นข้อเสนอให้เจ้าตัวเองเลย
+</p>
+  `
+}
   ],
   'politics': [
     {
       id: 'world-politics-update',
       title: "เกาะติดสถานการณ์ตะวันออกกลาง",
       date: "17 April 2026",
-      summary: "สรุปผลกระทบ",
+      summary: "สรุปผลกระทบจากการยกเลิกสนามบาห์เรนและซาอุฯ",
       img: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=1000",
       fullContent: `<p>เนื้อหาข่าวการเมืองฉบับเต็ม...</p>`
     }
