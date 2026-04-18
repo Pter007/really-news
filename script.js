@@ -252,12 +252,7 @@ function openPage(categoryId, categoryTitle, isBack = false) {
     const newsList = newsLibrary[categoryId] || [];
     const contentArea = document.getElementById('dynamic-content');
     
-    let html = '';
-    if (newsList.length > 0) {
-        [...newsList].reverse().forEach(news => {
-            html += `
-                <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
-let html = `<p class="news-lead">รวบรวมเหตุการณ์และบทวิเคราะห์ล่าสุดเกี่ยวกับ <span>${categoryTitle}</span></p>`;
+    let html = `<p class="news-lead">รวบรวมเหตุการณ์และบทวิเคราะห์ล่าสุดเกี่ยวกับ <span>${categoryTitle}</span></p>`;
     
     if (newsList.length > 0) {
         [...newsList].reverse().forEach(news => {
@@ -303,14 +298,27 @@ function goBack() {
 }
 
 // --- ส่วนที่ 6: ระบบนาฬิกา ---
+// --- ระบบนาฬิกา Digital Clock (Fixed) ---
 function updateClock() {
     const now = new Date();
-    const time = now.toLocaleTimeString();
-    const date = now.toLocaleDateString();
+    
+    // จัดรูปแบบเวลา (HH:MM:SS)
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const timeString = now.toLocaleTimeString('th-TH', timeOptions);
+    
+    // จัดรูปแบบวันที่ (DD/MM/YYYY)
+    const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const dateString = now.toLocaleDateString('th-TH', dateOptions);
+    
     const clockElement = document.getElementById('digital-clock');
-    if(clockElement) {
-        clockElement.innerText = `${time} | ${date}`;
+    
+    if (clockElement) {
+        clockElement.innerText = `${timeString} | ${dateString}`;
     }
 }
+
+// สั่งให้รันทุกๆ 1 วินาที
 setInterval(updateClock, 1000);
+
+// เรียกใช้ทันทีที่โหลดหน้าเว็บเพื่อให้เวลาแสดงเลย ไม่ต้องรอ 1 วินาทีแรก
 updateClock();
