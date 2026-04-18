@@ -277,6 +277,8 @@ function openPage(categoryId, categoryTitle, isBack = false) {
 function showFullArticle(catId, newsId, isBack = false) {
     const news = newsLibrary[catId].find(n => n.id === newsId);
     const contentArea = document.getElementById('dynamic-content');
+  
+  document.getElementById('article-date').innerText = news.date;
     
     if (!isBack) {
         history.pushState({ page: 'article', catId, newsId }, news.title);
