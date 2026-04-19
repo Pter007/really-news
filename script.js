@@ -324,3 +324,21 @@ setInterval(updateClock, 1000);
 
 // เรียกใช้ทันทีที่โหลดหน้าเว็บเพื่อให้เวลาแสดงเลย ไม่ต้องรอ 1 วินาทีแรก
 updateClock();
+
+// ฟังก์ชันสำหรับดึงวันที่ปัจจุบันและแสดงผลในรูปแบบภาษาอังกฤษ
+function setCurrentDate() {
+    const today = new Date();
+    
+    // ตั้งค่ารูปแบบการแสดงผล (เช่น 19 April 2026)
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = today.toLocaleDateString('en-GB', options);
+
+    // เลือก Element ที่ต้องการเปลี่ยนวันที่ (ระบุ ID ให้ตรงกับใน HTML)
+    const dateElement = document.getElementById('article-date');
+    if (dateElement) {
+        dateElement.innerText = formattedDate;
+    }
+}
+
+// เรียกใช้งานฟังก์ชัน
+setCurrentDate();
