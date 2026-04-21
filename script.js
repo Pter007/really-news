@@ -131,7 +131,7 @@ const newsLibrary = {
       title: "Drivers & Teams WEC 2026: เจาะลึกขุมพลัง LMH ทั้ง 9 ค่าย",
       date: "20 April 2026",
       summary: "สรุปข้อมูลตัวรถและรายชื่อนักแข่งรุ่น Hypercar แบบจัดเต็ม 9 ค่าย 17 คัน ใครขับทีมไหน รถแรงแค่ไหน",
-      img: "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
+      img: "https://i.postimg.cc/m20Z3pbG/2026-ferrari-fia-wec-hypercar-desk.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
       fullContent: `
         <p class="news-lead">เข้าสู่ยุคทองของ Endurance มาดูรายละเอียดรถแข่ง (Machine Specs) และไลน์อัปนักแข่งของรุ่น LMH ประจำฤดูกาล 2026</p>
 <div class="team-box" style="border-top: 5px solid #ef3340;">
