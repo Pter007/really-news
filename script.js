@@ -565,18 +565,22 @@ const newsList = newsLibrary[categoryId] || [];
         // ใช้ reverse() เพื่อเอาข่าวท้ายสุด (ใหม่สุด) มาไว้ข้างบน
         const reversedNews = [...newsList].reverse(); 
         
-        reversedNews.forEach(news => {
-            html += `
-                <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
-                    <img src="${news.img}" alt="news">
-                    <div class="news-feed-info">
-                        <h4>${news.title}</h4>
-                        <p>${news.summary}</p>
-                        <span class="date">${news.date}</span>
-                    </div>
-                </div>
-            `;
-        });
+reversedNews.forEach(news => {
+    html += `
+        <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')" 
+             style="display: flex; gap: 15px; margin-bottom: 20px; cursor: pointer; align-items: flex-start;">
+            
+            <img src="${news.img}" alt="news" 
+                 style="width: 150px; height: 100px; object-fit: cover; border-radius: 8px; flex-shrink: 0;">
+            
+            <div class="news-feed-info">
+                <h4 style="margin: 0 0 5px 0;">${news.title}</h4>
+                <p style="font-size: 0.9rem; color: #bbb; margin-bottom: 5px;">${news.summary}</p>
+                <span class="date" style="font-size: 0.8rem; color: #666;">${news.date}</span>
+            </div>
+        </div>
+    `;
+});
     } else {
         html += `<p style="text-align:center; color:#888;">ขออภัย ไม่พบข้อมูลข่าวในขณะนี้</p>`;
     }
