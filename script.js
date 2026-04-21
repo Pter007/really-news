@@ -5,7 +5,8 @@ window.onload = () => {
     const id = urlParams.get('id');
 
     if (cat && id && newsLibrary[cat]) {
-        // ส่งค่า true เข้าไปทั้งสองฟังก์ชันเพื่อไม่ให้มัน Push State ซ้ำตอนโหลดครั้งแรก
+        // เช็คใน Console ว่าค่ามาถูกต้องไหม
+        console.log("Loading News ID:", id); 
         openPage(cat, cat.toUpperCase(), true); 
         showFullArticle(cat, id, true);
     } else {
