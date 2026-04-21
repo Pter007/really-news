@@ -1,19 +1,18 @@
 // --- ส่วนที่ 1: ระบบจัดการการกดย้อนกลับ ---
 window.onload = () => {
-    // ดึงค่าจาก URL
     const urlParams = new URLSearchParams(window.location.search);
     const cat = urlParams.get('cat');
     const id = urlParams.get('id');
 
-    if (cat && id) {
-        // ถ้ามีข้อมูลในลิงก์ ให้เปิดข่าวนั้นเลย
-        openPage(cat, cat.toUpperCase(), true); // เปิดหน้าหมวดหมู่ก่อน
-        showFullArticle(cat, id, true);        // แล้วเปิดเนื้อหาข่าว
+    if (cat && id && newsLibrary[cat]) {
+        // ส่งค่า true เข้าไปทั้งสองฟังก์ชันเพื่อไม่ให้มัน Push State ซ้ำตอนโหลดครั้งแรก
+        openPage(cat, cat.toUpperCase(), true); 
+        showFullArticle(cat, id, true);
     } else {
-        // ถ้าไม่มี ให้แสดงหน้า Home ปกติ
         history.replaceState({ page: 'home' }, 'Home');
     }
 };
+
 window.onpopstate = function(event) {
     if (event.state) {
         if (event.state.page === 'home') {
@@ -21,6 +20,9 @@ window.onpopstate = function(event) {
             document.getElementById('home-page').classList.add('active');
         } else if (event.state.page === 'category') {
             openPage(event.state.id, event.state.title, true);
+        } else if (event.state.page === 'article') {
+            // เพิ่มส่วนนี้เพื่อให้เวลาย้อนกลับแล้วข่าวแสดงผล
+            showFullArticle(event.state.catId, event.state.newsId, true);
         }
     }
 };
