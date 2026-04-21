@@ -556,29 +556,31 @@ function openPage(categoryId, categoryTitle, isBack = false) {
     };
     newsImg.src = banners[categoryId] || banners['motorsport'];
 
-    const newsList = newsLibrary[categoryId] || [];
+const newsList = newsLibrary[categoryId] || [];
     const contentArea = document.getElementById('dynamic-content');
     
     let html = `<p class="news-lead">รวบรวมเหตุการณ์และบทวิเคราะห์ล่าสุดเกี่ยวกับ <span>${categoryTitle}</span></p>`;
     
     if (newsList.length > 0) {
-        [...newsList].reverse().forEach(news => {
+        // ใช้ reverse() เพื่อเอาข่าวท้ายสุด (ใหม่สุด) มาไว้ข้างบน
+        const reversedNews = [...newsList].reverse(); 
+        
+        reversedNews.forEach(news => {
             html += `
                 <div class="news-feed-item" onclick="showFullArticle('${categoryId}', '${news.id}')">
-                    <div class="feed-img"><img src="${news.img}"></div>
-                    <div class="feed-info">
-                        <span class="feed-date">${news.date}</span>
-                        <h3>${news.title}</h3>
+                    <img src="${news.img}" alt="news">
+                    <div class="news-feed-info">
+                        <h4>${news.title}</h4>
                         <p>${news.summary}</p>
-                        <span class="read-more-btn">กดเพื่ออ่านต่อ...</span>
+                        <span class="date">${news.date}</span>
                     </div>
-                </div>`;
+                </div>
+            `;
         });
     } else {
-        html += '<p style="text-align:center; padding:20px; color:#666;">ยังไม่มีข่าวอัปเดตในหมวดนี้</p>';
+        html += `<p style="text-align:center; color:#888;">ขออภัย ไม่พบข้อมูลข่าวในขณะนี้</p>`;
     }
-    contentArea.innerHTML = html;
-    window.scrollTo(0, 0);
+    contentArea.innerHTML = html; // ต้องมั่นใจว่าบรรทัดนี้อยู่หลัง loop จบแล้ว
 }
 // --- ส่วนที่ 4: ระบบเปิดข่าวฉบับเต็ม ---
 function showFullArticle(catId, newsId, isBack = false) {
