@@ -131,7 +131,7 @@ const newsLibrary = {
       title: "Drivers & Teams WEC 2026: เจาะลึกขุมพลัง LMH ทั้ง 9 ค่าย",
       date: "20 April 2026",
       summary: "สรุปข้อมูลตัวรถและรายชื่อนักแข่งรุ่น Hypercar แบบจัดเต็ม 9 ค่าย 17 คัน ใครขับทีมไหน รถแรงแค่ไหน",
-      img: "https://i.postimg.cc/m20Z3pbG/2026-ferrari-fia-wec-hypercar-desk.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
+      img: "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
       fullContent: `
         <p class="news-lead">เข้าสู่ยุคทองของ Endurance มาดูรายละเอียดรถแข่ง (Machine Specs) และไลน์อัปนักแข่งของรุ่น LMH ประจำฤดูกาล 2026</p>
 <div class="team-box" style="border-top: 5px solid #ef3340;">
@@ -211,6 +211,140 @@ const newsLibrary = {
         <p style="text-align: center; color: #888; font-size: 0.8rem;">อัปเดตข้อมูลล่าสุดเพื่อการรับชม WEC 2026 อย่างเต็มอรรถรส</p>
       `
     },
+    {
+  id: 'toyota-imola-50th-win-2026',
+  title: "โตโยต้าฉลองนัดที่ 100! ผงาดคว้าชัย 6 Hours of Imola สู่แชมป์ครั้งที่ 50 ในประวัติศาสตร์ WEC",
+  date: "21 April 2026",
+  summary: "โตโยต้าประเดิมชัยชนะสนามแรกของฤดูกาล 2026 ด้วยรถแข่งรุ่นใหม่ TR010 ฉลองการลงแข่งนัดที่ 100 และชัยชนะครั้งที่ 50 อย่างยิ่งใหญ่ ท่ามกลางดงแฟนคลับเฟอร์รารีในอิตาลี",
+  img: "https://i.postimg.cc/15YQgp6r/dppiproduction-00004387-0632-69e50ab292ada665758787-jpg.webp", // [จุดใส่ภาพที่ 1: ภาพรถ Toyota TR010 หรือภาพบรรยากาศโพเดียม]
+  fullContent: `
+    <p class="news-lead">การประกาศศักดาครั้งยิ่งใหญ่ของยักษ์ใหญ่จากญี่ปุ่นในนัดที่ 100 ของทีม พร้อมพา TR010 รุ่นปรับปรุงใหม่คว้าชัยเหนือ Ferrari ในบ้านเกิดได้สำเร็จ</p>
+
+    <div class="quote-card" style="border-left-color: #ef3340; background: rgba(239, 51, 64, 0.1);">
+      <strong>🏆 MILESTONE:</strong> ชัยชนะครั้งนี้ถือเป็นครั้งที่ 50 ในรายการ WEC ของ Toyota และเป็นการเปิดตัวชื่อรุ่น <strong>TR010</strong> อย่างเป็นทางการหลังถอดชื่อ Gazoo Racing ออก
+    </div>
+
+    <h3>🏁 สรุปผลการแข่งขันรุ่น Hypercar (Top 3)</h3>
+    <div style="overflow-x: auto;">
+      <table class="spec-table" style="background: #222; border-radius: 8px;">
+        <tr style="background: #333; color: #e67e22;">
+          <th style="padding: 10px;">อันดับ</th>
+          <th style="padding: 10px;">รถหมายเลข / ทีม</th>
+          <th style="padding: 10px;">นักขับ</th>
+        </tr>
+        <tr>
+          <td style="text-align: center; font-weight: bold;">🥇 1</td>
+          <td>No.8 Toyota TR010</td>
+          <td>Buemi / Hartley / Hirakawa</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; font-weight: bold;">🥈 2</td>
+          <td>No.51 Ferrari 499P</td>
+          <td>Giovinazzi / Calado / Pier Guidi</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; font-weight: bold;">🥉 3</td>
+          <td>No.7 Toyota TR010</td>
+          <td>de Vries / Conway / Kobayashi</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>⚡ กลยุทธ์ที่เหนือชั้น: ชนะกันในพิตเลน</h3>
+    <p>จุดเปลี่ยนสำคัญเกิดขึ้นในช่วงปลายชั่วโมงที่สอง เมื่อโตโยต้าตัดสินใจเสี่ยง <strong>"ไม่เปลี่ยนยาง"</strong> ในการเข้าพิต ทำให้รถหมายเลข 8 ก้าวขึ้นเป็นผู้นำ และอาศัยจังหวะ <strong>Virtual Safety Car</strong> จากอุบัติเหตุของ Peugeot หมายเลข 93 ในการรักษาระยะห่าง</p>
+    
+    <p>แม้ Ferrari จะพยายามทำ Undercut แต่ประสิทธิภาพการทำงานของพิตโตโยต้าในวันนี้ไร้ที่ติ บูเอมีสามารถนำรถเข้าเส้นชัยทิ้งห่างจิโอวินาซซีถึง 13.352 วินาที ท่ามกลางสายตาแฟนมอเตอร์สปอร์ตนับแสนคนในสนามอิโมลา</p>
+
+    <div style="margin: 20px 0; border-radius: 12px; overflow: hidden; border: 1px solid #444;">
+      <img src="https://i.postimg.cc/rsmHcPfh/8-toyota-gazoo-racing-toyota-t-4.webp" style="width: 100%; display: block;">
+      <p style="font-size: 0.8rem; color: #888; padding: 10px; margin: 0; background: #111;">ภาพประกอบ: หลังจบการแข่งขัน</p>
+    </div>
+
+    <h3>📊 อัปเดตรุ่นอื่นๆ และน้องใหม่</h3>
+    <ul>
+      <li><strong>LMGT3:</strong> BMW M4 GT3 หมายเลข 69 จากทีม WRT คว้าชัยชนะหลัง McLaren หมายเลข 10 ประสบปัญหาไดชาร์จในช่วง 30 นาทีสุดท้าย</li>
+      <li><strong>Genesis:</strong> เปิดตัวครั้งแรกอย่างเป็นทางการ รถ GMR-001 หมายเลข 15 จบในอันดับที่ 15 ถือเป็นการเริ่มต้นเก็บข้อมูลที่สำคัญ</li>
+      <li><strong>Alpine:</strong> รถหมายเลข 35 ทำผลงานยอดเยี่ยมจบอันดับที่ 4 หลังไล่บี้กับ BMW อย่างหนักในช่วงท้าย</li>
+    </ul>
+
+    <div class="quote-card">
+      "มันคือการเริ่มต้นฤดูกาลที่ยอดเยี่ยมที่สุดสำหรับพวกเรา... เราทำงานร่วมกันเป็นทีม และรถหมายเลข 7 ก็ช่วยบังเฟอร์รารีให้เราในจังหวะสำคัญ" — <strong>Brendon Hartley</strong> ให้สัมภาษณ์หลังจบการแข่งขัน
+    </div>
+<div style="margin: 30px 0; text-align: center;">
+          <a href="https://youtu.be/Lg2k1A8LJTE?si=InYNZMygr0GzfCiN" target="_blank" class="video-container">
+            <div class="thumbnail-wrapper">
+              <img src="https://img.youtube.com/vi/Lg2k1A8LJTE/maxresdefault.jpg" alt="WEC Highlights" class="main-thumb">
+              <div class="play-overlay">
+                <svg viewBox="0 0 24 24" fill="white" class="play-icon">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </a>
+          <p style="color: #555; font-size: 0.75rem; margin-top: 8px; letter-spacing: 1px;">WATCH EXTENDED HIGHLIGHTS</p>
+        </div>
+
+        <style>
+          .video-container {
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+            text-decoration: none;
+            overflow: hidden;
+            border-radius: 8px; /* ปรับให้โค้งมนนิดหน่อย */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+          }
+          
+          .thumbnail-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .main-thumb {
+            width: 100%;
+            display: block;
+            transition: all 0.5s ease;
+            filter: brightness(0.9);
+          }
+          
+          .play-overlay {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 212, 255, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2;
+          }
+          
+          .play-icon {
+            width: 35px;
+            height: 35px;
+            margin-left: 5px; /* ชดเชยให้ดูตรงกลางเป๊ะ */
+          }
+          
+          /* Hover Effect: เมื่อเอาเมาส์จ่อรูปจะสว่างขึ้นและซูมนิดๆ */
+          .video-container:hover .main-thumb {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+          }
+          
+          .video-container:hover .play-overlay {
+            transform: scale(1.1);
+            background: #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+          }
+        </style>
+
+    <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 30px;">รายงานโดย: Pter | ข้อมูลอ้างอิง: WEC Official Broadcast</p>
+  `
+},
   ],
   'politics': [
     {
@@ -320,9 +454,9 @@ function openPage(categoryId, categoryTitle, isBack = false) {
     document.getElementById('home-page').classList.remove('active');
     document.getElementById('sub-page').classList.add('active');
     document.getElementById('sub-page-title').innerText = categoryTitle;
+  
+   setCurrentDate();
 
-    setCurrentDate();
-    
     if (!isBack) {
         history.pushState({ page: 'category', id: categoryId, title: categoryTitle }, categoryTitle);
     }
