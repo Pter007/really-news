@@ -357,7 +357,8 @@ const newsLibrary = {
 
     <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 30px;">รายงานโดย: Pter | ข้อมูลอ้างอิง: WEC Official Broadcast</p>
   `
-},{
+},
+      {
       id: 'fia-reg-refinement-2026',
       title: "FIA ประกาศปรับปรุงระเบียบข้อบังคับ F1 2026 มุ่งเน้นการขับขี่แบบ Flat-out และความปลอดภัยที่เพิ่มขึ้น",
       date: "21 April 2026",
