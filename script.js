@@ -1,8 +1,19 @@
 // --- ส่วนที่ 1: ระบบจัดการการกดย้อนกลับ ---
 window.onload = () => {
-    history.replaceState({ page: 'home' }, 'Home');
-};
+    // ดึงค่าจาก URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const cat = urlParams.get('cat');
+    const id = urlParams.get('id');
 
+    if (cat && id) {
+        // ถ้ามีข้อมูลในลิงก์ ให้เปิดข่าวนั้นเลย
+        openPage(cat, cat.toUpperCase(), true); // เปิดหน้าหมวดหมู่ก่อน
+        showFullArticle(cat, id, true);        // แล้วเปิดเนื้อหาข่าว
+    } else {
+        // ถ้าไม่มี ให้แสดงหน้า Home ปกติ
+        history.replaceState({ page: 'home' }, 'Home');
+    }
+};
 window.onpopstate = function(event) {
     if (event.state) {
         if (event.state.page === 'home') {
@@ -501,8 +512,9 @@ function showFullArticle(catId, newsId, isBack = false) {
   
   document.getElementById('article-date').innerText = news.date;
     
-    if (!isBack) {
-        history.pushState({ page: 'article', catId, newsId }, news.title);
+if (!isBack) {
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?cat=${catId}&id=${newsId}`;
+        history.pushState({ page: 'article', catId, newsId }, news.title, newUrl);
     }
 
     document.getElementById('news-img').src = news.img;
@@ -517,9 +529,13 @@ function showFullArticle(catId, newsId, isBack = false) {
 
 // --- ส่วนที่ 5: ปุ่มกดย้อนกลับ ---
 function goBack() {
-  history.back(); // สั่งให้เบราว์เซอร์ถอยหลัง 1 สเต็ป (เข้ากับระบบ History ของเราพอดี)
+    // ล้างค่าใน URL กลับเป็นหน้าปกติ
+    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    history.pushState({ page: 'home' }, 'Home', cleanUrl);
+    
+    document.getElementById('sub-page').classList.remove('active');
+    document.getElementById('home-page').classList.add('active');
 }
-
 // --- ส่วนที่ 6: ระบบนาฬิกา ---
 // --- ระบบนาฬิกา Digital Clock (Fixed) ---
 function updateClock() {
