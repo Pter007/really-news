@@ -321,6 +321,8 @@ function openPage(categoryId, categoryTitle, isBack = false) {
     document.getElementById('sub-page').classList.add('active');
     document.getElementById('sub-page-title').innerText = categoryTitle;
 
+    setCurrentDate();
+    
     if (!isBack) {
         history.pushState({ page: 'category', id: categoryId, title: categoryTitle }, categoryTitle);
     }
