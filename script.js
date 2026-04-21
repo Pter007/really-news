@@ -144,7 +144,7 @@ const newsLibrary = {
       title: "Drivers & Teams WEC 2026: เจาะลึกขุมพลัง LMH ทั้ง 9 ค่าย",
       date: "20 April 2026",
       summary: "สรุปข้อมูลตัวรถและรายชื่อนักแข่งรุ่น Hypercar แบบจัดเต็ม 9 ค่าย 17 คัน ใครขับทีมไหน รถแรงแค่ไหน",
-      img: "https://i.postimg.cc/m20Z3pbG/2026-ferrari-fia-wec-hypercar-desk.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
+      img: "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
       fullContent: `
         <p class="news-lead">เข้าสู่ยุคทองของ Endurance มาดูรายละเอียดรถแข่ง (Machine Specs) และไลน์อัปนักแข่งของรุ่น LMH ประจำฤดูกาล 2026</p>
 <div class="team-box" style="border-top: 5px solid #ef3340;">
@@ -357,7 +357,78 @@ const newsLibrary = {
 
     <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 30px;">รายงานโดย: Pter | ข้อมูลอ้างอิง: WEC Official Broadcast</p>
   `
-},
+},{
+      id: 'fia-reg-refinement-2026',
+      title: "FIA ประกาศปรับปรุงระเบียบข้อบังคับ F1 2026 มุ่งเน้นการขับขี่แบบ Flat-out และความปลอดภัยที่เพิ่มขึ้น",
+      date: "21 April 2026",
+      summary: "FIA ร่วมกับทีมแข่งและผู้ผลิตเครื่องยนต์ บรรลุข้อตกลงปรับปรุงกฎทางเทคนิคปี 2026 เพิ่มกำลังไฟฟ้าเป็น 350kW เพื่อลดภาระการบริหารพลังงานของนักแข่ง เริ่มใช้จริงที่ไมอามี่",
+      img: "https://i.postimg.cc/CLxMtMSM/a46af751-5a31-2e58-e991-3b3fb2c69c28.jpg", // สามารถเปลี่ยนรูปภาพตามต้องการ
+      fullContent: `
+        <style>
+          .fia-official-update { font-family: 'Inter', sans-serif; line-height: 1.7; color: #e0e0e0; }
+          .badge-fia { display: inline-block; background: #00418c; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; letter-spacing: 1px; }
+          .reg-section { background: #1a1a1a; border-left: 4px solid #00418c; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0; }
+          .reg-section h3 { color: #00d4ff; margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+          .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0; }
+          .tech-card { background: #222; padding: 15px; border-radius: 8px; border: 1px solid #333; text-align: center; }
+          .tech-card .label { display: block; font-size: 0.75rem; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+          .tech-card .value { display: block; font-size: 1.3rem; font-weight: bold; color: #fff; }
+          .change-up { color: #2ecc71; font-size: 0.8rem; }
+          .change-down { color: #e74c3c; font-size: 0.8rem; }
+          .wet-notif { background: linear-gradient(90deg, #1a3a5c, #111); padding: 15px; border-radius: 8px; border: 1px solid #2980b9; margin-top: 20px; }
+          .highlight-text { color: #00d4ff; font-weight: bold; }
+        </style>
+
+        <div class="fia-official-update">
+          <div class="badge-fia">FIA OFFICIAL STATEMENT</div>
+          <p class="news-lead">สหพันธ์ยานยนต์นานาชาติ (FIA) ประกาศปรับปรุงระเบียบข้อบังคับทางเทคนิคและเชิงกีฬาสำหรับการแข่งขัน Formula 1 ฤดูกาล 2026 โดยความเห็นชอบร่วมกันของทีมแข่ง ผู้ผลิตหน่วยขับเคลื่อน และ FOM เพื่อยกระดับสมรรถนะการขับขี่และการชาร์จพลังงาน</p>
+
+          <p>ข้อสรุปจากการประชุมออนไลน์ครั้งล่าสุด ได้นำข้อมูลจากการแข่งขัน 3 สนามแรกมาวิเคราะห์เพื่อปรับแต่งสมดุลของรถแข่งยุคใหม่ โดยมีรายละเอียดการเปลี่ยนแปลงสำคัญที่จะเริ่มใช้ ณ รายการ <span class="highlight-text">Miami Grand Prix</span> ดังนี้:</p>
+
+          <div class="reg-section">
+            <h3>⏱️ รอบคัดเลือก: การรีดสมรรถนะสูงสุด</h3>
+            <p>ปรับเกณฑ์การบริหารจัดการพลังงานเพื่อสนับสนุนการขับขี่แบบ Flat-out (เหยียบเต็มกำลัง) และลดภาระงานของนักแข่ง:</p>
+            <div class="tech-grid">
+              <div class="tech-card">
+                <span class="label">Max Recharge</span>
+                <span class="value">7 MJ</span>
+                <span class="change-down">▼ จาก 8 MJ</span>
+              </div>
+              <div class="tech-card">
+                <span class="label">Peak Superclip Power</span>
+                <span class="value">350 kW</span>
+                <span class="change-up">▲ จาก 250 kW</span>
+              </div>
+            </div>
+            <p style="font-size: 0.9rem; color: #bbb;">*ผลลัพธ์: ลดระยะเวลาการชาร์จไฟ (Harvesting) และลดช่วงเวลา Superclip ลงเหลือเพียง 2-4 วินาทีต่อรอบ เพื่อให้เครื่องยนต์แสดงพลังได้ต่อเนื่องขึ้น</p>
+          </div>
+
+          <div class="reg-section" style="border-left-color: #e74c3c;">
+            <h3>🏎️ การแข่งขัน: เสถียรภาพและโอกาสในการแซง</h3>
+            <ul>
+              <li><span class="highlight-text">Race Boost:</span> จำกัดกำลังเสริม (Boost) ไว้ที่ <span class="highlight-text">+150 kW</span> เพื่อป้องกันความแตกต่างของความเร็วที่มากเกินไปจนเกิดอันตราย</li>
+              <li><span class="highlight-text">MGU-K Deployment:</span> จ่ายไฟเต็มกำลัง 350 kW เฉพาะในโซนเร่งความเร็วหลัก และจำกัดที่ 250 kW ในส่วนอื่นของสนาม</li>
+            </ul>
+          </div>
+
+          <div class="reg-section" style="border-left-color: #f1c40f;">
+            <h3>🛡️ ความปลอดภัยและสภาพทางเปียก</h3>
+            <p>พัฒนาระบบ <span class="highlight-text">Low Power Start Detection</span> ตรวจจับอัตราเร่งที่ผิดปกติช่วงออกตัว หากรถคันใดมีกำลังต่ำ ระบบจะสั่งจ่ายไฟ MGU-K อัตโนมัติเพื่อป้องกันการถูกชนท้าย พร้อมสัญญาณไฟเตือนรอบคัน</p>
+            
+            <div class="wet-notif">
+              <strong>🌧️ สภาวะฝนตก:</strong> เพิ่มอุณหภูมิผ้าห่มยาง (Tyre Blanket) สำหรับยาง Intermediate เพื่อการยึดเกาะที่ดีขึ้นทันทีที่ออกจากพิต และปรับลดแรงบิด (Torque) จากระบบ ERS เพื่อการควบคุมรถที่แม่นยำขึ้น
+            </div>
+          </div>
+
+          <div class="quote-card">
+            "การปรับเปลี่ยนครั้งนี้คือผลลัพธ์ของการทำงานร่วมกันระหว่างฝ่ายเทคนิคและเสียงสะท้อนจากนักแข่ง เพื่อรักษาจิตวิญญาณของการแข่งขัน Formula 1 ให้มั่นคงในยุคเครื่องยนต์ไฮบริด 2026"
+          </div>
+
+          <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 40px;">แปลและเรียบเรียงโดย: Pter | แหล่งข้อมูลอ้างอิง: FIA WMSC</p>
+          </div>
+        </div>
+      `
+    },
   ],
   'politics': [
     {
@@ -367,7 +438,7 @@ const newsLibrary = {
       summary: "สรุปผลกระทบจากการยกเลิกสนามบาห์เรนและซาอุฯ",
       img: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=1000",
       fullContent: `<p>เนื้อหาข่าวการเมืองฉบับเต็ม...</p>`
-    }
+    },
   ],
   'economy': [
     {
