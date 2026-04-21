@@ -126,6 +126,91 @@ const newsLibrary = {
     </style>
   `
 },
+   {
+      id: 'wec-2026-drivers-teams',
+      title: "Drivers & Teams WEC 2026: เจาะลึกขุมพลัง LMH ทั้ง 9 ค่าย",
+      date: "20 April 2026",
+      summary: "สรุปข้อมูลตัวรถและรายชื่อนักแข่งรุ่น Hypercar แบบจัดเต็ม 9 ค่าย 17 คัน ใครขับทีมไหน รถแรงแค่ไหน",
+      img: "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg", // เปลี่ยนลิงก์รูปได้ตามต้องการ
+      fullContent: `
+        <p class="news-lead">เข้าสู่ยุคทองของ Endurance มาดูรายละเอียดรถแข่ง (Machine Specs) และไลน์อัปนักแข่งของรุ่น LMH ประจำฤดูกาล 2026</p>
+<div class="team-box" style="border-top: 5px solid #ef3340;">
+    <h2 class="team-title" style="color: #ef3340;">🏎️ Ferrari AF Corse & AF Corse (3 Cars)</h2>
+    <p><strong>Machine: Ferrari 499P (LMH)</strong> | Engine: V6 3.0L Twin-Turbo</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.50 :</span> Antonnio Fuoco / Miguel Molina / Nicklas Nielsen</p>
+      <p><span class="car-no">No.51 :</span> Antonio Giovinazzi / Alessandro Pier Guidi / James Calado</p>
+      <p style="color: #ffff00;"><span class="car-no" style="color: #ffff00;">No.83 :</span> Phil Hanson / Robert Kubica / Yifei Ye
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #ffffff;">
+    <h2 class="team-title" style="color: #fff;">⚪ Toyota Racing (2 Cars)</h2>
+    <p><strong>Machine: Toyota TR010 Hybrid (LMH)</strong> | Engine: V6 3.5L Twin-Turbo</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.7 :</span> Mike Conway / Kamui Kobayashi / Nyck de Vries</p>
+      <p><span class="car-no">No.8 :</span> Brendon Hartley / Sébastien Buemi / Ryo Hirakawa</p>
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #0066b2;">
+    <h2 class="team-title" style="color: #0066b2;">🔵 BMW M Team WRT (2 Cars)</h2>
+    <p><strong>Machine: BMW M Hybrid V8 (LMDh)</strong> | Engine: V8 4.0L Twin-Turbo</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.15 :</span> Raffaele Marciello / Dries Vanthoor / Kevin Magmussen</p>
+      <p><span class="car-no">No.20 :</span> Robin Frijns / René Rast / Sheldon van der Linde</p>
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #9e9e9e;">
+    <h2 class="team-title" style="color: #fff;">🌑 Peugeot TotalEnergies (2 Cars)</h2>
+    <p><strong>Machine: Peugeot 9X8 2026 (LMH)</strong> | Engine: V6 2.6L Twin-Turbo</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.93 :</span> Nick Cassidy / Paul di Resta / Stoffel Vandoorne</p>
+      <p><span class="car-no">No.94 :</span> Théo Pourchaire / Loïc Duval / Malthe Jakobsen</p>
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #808080;">
+    <h2 class="team-title" style="color: #808080;">🩶 Hertz Team Jota (2 Cars)</h2>
+    <p><strong>Machine: Cadillac V-Series.R (LMDh)</strong> | Engine: V8 5.5L NA</p>
+    <p style="font-size: 0.8rem; color: #888;">*ทีม Jota เปลี่ยนมาใช้ตัวรถจาก Cadillac แทน Porsche ในฤดูกาลนี้</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.12 :</span> Will Stevens / Alex Lynn / Norman Nato</p>
+      <p><span class="car-no">No.38 :</span> Jack Aitken / Sébastien Bourdais - Earl Bamber</p>
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #005094;">
+    <h2 class="team-title" style="color: #005094;">🧥 Alpine Endurance Team (2 Cars)</h2>
+    <p><strong>Machine: Alpine A424 (LMDh)</strong> | Engine: V6 3.4L Twin-Turbo</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.35 :</span> António Félix da Costa / Ferdinand Habsburg / Charles Milesi</p>
+      <p><span class="car-no">No.36 :</span> Jules Gounon / Frédéric Makowiecki / Victor Msrtins</p>
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #ff4500;">
+    <h2 class="team-title" style="color: #ff4500;">🔥 Genesis Magma Racing (2 Cars)</h2>
+    <p><strong>Machine: Genesis GMR-001 (LMH)</strong> | Engine: V8 3.2L Twin-Turbo</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.17 :</span> Pipo Derani / Mathys Jaubert / André Lotterer</p>
+      <p><span class="car-no">No.19 :</span> Paul-Loup Chatin / Mathieu Jamient / Daniel Juncadella</p>
+    </div>
+  </div>
+
+  <div class="team-box" style="border-top: 5px solid #00665e;">
+    <h2 class="team-title" style="color: #00665e;">🌲 Aston Martin THOR Team (2 Cars)</h2>
+    <p><strong>Machine: Ason MArtin Valkyrie LMH</strong> | Engine: V12 6.5L NA</p>
+    <div class="driver-list">
+      <p><span class="car-no">No.007 :</span> Tom Gamble / Ross Gunn / Harry Tincknell</p>
+      <p><span class="car-no">No.009 : </span> Roman De Angelis / Alex Riberas / Marco Serense</p>
+    </div>
+  </div>
+
+        <p style="text-align: center; color: #888; font-size: 0.8rem;">อัปเดตข้อมูลล่าสุดเพื่อการรับชม WEC 2026 อย่างเต็มอรรถรส</p>
+      `
+    },
   ],
   'politics': [
     {
@@ -235,8 +320,6 @@ function openPage(categoryId, categoryTitle, isBack = false) {
     document.getElementById('home-page').classList.remove('active');
     document.getElementById('sub-page').classList.add('active');
     document.getElementById('sub-page-title').innerText = categoryTitle;
-  
-  setCurrentDate();
 
     if (!isBack) {
         history.pushState({ page: 'category', id: categoryId, title: categoryTitle }, categoryTitle);
