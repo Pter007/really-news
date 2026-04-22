@@ -65,13 +65,13 @@ h1 { margin: 10px 0 5px; font-size: 2.5rem; text-transform: uppercase; letter-sp
 
 .news-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* ปรับให้รองรับการจัดวางที่ยืดหยุ่นขึ้น */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
   gap: 20px;
-  max-width: 900px;
+  max-width: 1000px; /* ขยายความกว้างรวมเล็กน้อยเพื่อให้วาง 3 อันต่อแถวได้สวย */
   margin: 0 auto 40px;
   padding: 0 20px;
 }
-
 .category-card {
   background: rgba(255, 255, 255, 0.05); /* เปลี่ยนจากสีทึบเป็นสีโปร่ง */
   backdrop-filter: blur(10px); /* ทำให้พื้นหลังเบลอเหมือนกระจก */
@@ -324,4 +324,4 @@ strong {
 .article-body p {
   text-indent: 2em; /* ย่อหน้าบรรทัดแรกเข้าไป 2 ตัวอักษร */
   margin-bottom: 1.5em; /* เพิ่มช่องว่างระหว่างย่อหน้า */
-}
+  }
