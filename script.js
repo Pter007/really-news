@@ -552,7 +552,8 @@ function openPage(categoryId, categoryTitle, isBack = false) {
         'motorsport': "https://i.postimg.cc/T39BLcLG/89268cfb220c0078f7671ec8abd5faf5.jpg",
         'space': "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000",
         'politics': "https://i.postimg.cc/Y04BHLbC/hq720-(2).jpg",
-        'economy': "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000"
+        'economy': "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000",
+        'education': "https://i.postimg.cc/tCWQNsLT/534d356b413450c4f2b6de5ce432e8ded0b194dc475190b6ef57b049dce68a87.jpg"
     };
     newsImg.src = banners[categoryId] || banners['motorsport'];
 
