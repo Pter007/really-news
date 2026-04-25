@@ -690,60 +690,97 @@ const database = firebase.database();
 function submitComment() {
     const nameInput = document.getElementById('comment-name');
     const textInput = document.getElementById('comment-text');
-    
-    // ตรวจสอบหมวดหมู่ปัจจุบัน ถ้าไม่มีให้เป็น general
     const category = (typeof currentArticleId !== 'undefined' && currentArticleId) ? currentArticleId : 'general';
 
     if (nameInput.value && textInput.value) {
-        database.ref('comments/' + category).push({
+        const commentData = {
             name: nameInput.value,
             text: textInput.value,
             date: new Date().toLocaleString('th-TH'),
             timestamp: Date.now()
-        }).then(() => {
-            alert('ส่งความคิดเห็นในหมวด ' + category + ' เรียบร้อยแล้ว!');
-            textInput.value = ""; // ล้างช่องข้อความ
-        }).catch(error => {
-            alert("เกิดข้อผิดพลาด: " + error.message);
+        };
+
+        // ถ้ามีการตอบกลับ ให้เพิ่มฟิลด์ replyTo เข้าไปด้วย
+        if (replyTarget) {
+            commentData.replyTo = replyTarget;
+        }
+
+        database.ref('comments/' + category).push(commentData).then(() => {
+            textInput.value = "";
+            textInput.placeholder = "พิมพ์ข้อความของคุณที่นี่...";
+            replyTarget = null; // รีเซ็ตเป้าหมายการตอบกลับ
         });
     } else {
-        alert('กรุณากรอกชื่อและข้อความให้ครบถ้วนครับ');
+        alert("กรุณากรอกข้อมูลให้ครบครับ");
     }
 }
-
 // 3. ฟังก์ชันสำหรับ "ดึง" และ "แสดงผล" ความคิดเห็น
 function loadComments(articleId) {
     const list = document.getElementById('comments-display'); 
-    if (!list) return;
-
-    // ถ้าไม่มี articleId ให้ดึงจาก general
     const targetId = articleId || 'general';
-    list.innerHTML = `<p style="color: #666; text-align: center;">กำลังโหลดข้อคิดเห็น...</p>`;
-
-    // ดึงข้อมูลจาก Path: comments/targetId
+    
+    // ดึงข้อมูลจาก Firebase
     database.ref('comments/' + targetId).on('value', (snapshot) => {
         const data = snapshot.val();
-        list.innerHTML = ""; // ล้างหน้าจอเพื่อเตรียมลงข้อมูลใหม่
+        list.innerHTML = ""; 
 
         if (data) {
-            // Firebase ส่ง data มาเป็น Object เราต้องเปลี่ยนเป็น Array ก่อน
-            const commentsArray = Object.values(data);
-            
-            // วนลูปแสดงผลทุกคน (ใช้ reverse เพื่อให้คนล่าสุดอยู่บนสุด)
-            commentsArray.reverse().forEach(comment => {
+            // ใช้ Object.entries เพื่อดึงทั้ง Key (ไอดี) และ Value (เนื้อหา)
+            Object.entries(data).reverse().forEach(([key, comment]) => {
+                const isReply = comment.replyTo ? 'margin-left: 30px; border-left: 2px solid #555;' : '';
+                
                 const card = `
-                    <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:12px; border-left:4px solid #e67e22; text-align:left;">
-                        <strong style="color:#e67e22; display:block; margin-bottom:5px;">${comment.name}</strong>
-                        <span style="color:#888; font-size:0.7rem;">${comment.date || ''}</span>
-                        <p style="margin:8px 0 0; color:#ddd;">${comment.text}</p>
+                    <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:12px; border-left:4px solid #e67e22; ${isReply}">
+                        <strong style="color:#e67e22;">${comment.name}</strong>
+                        ${comment.replyTo ? `<small style="color:#888;"> ตอบกลับถึงคุณ ${comment.replyTo}</small>` : ''}
+                        <p id="text-${key}" style="color:#ddd; margin:10px 0;">${comment.text}</p>
+                        
+                        <div class="comment-actions" style="font-size:0.8rem;">
+                            <a href="javascript:void(0)" onclick="prepareReply('${comment.name}')" style="color:#3498db; margin-right:10px;">ตอบกลับ</a>
+                            <a href="javascript:void(0)" onclick="editComment('${key}', '${targetId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
+                            <a href="javascript:void(0)" onclick="deleteComment('${key}', '${targetId}')" style="color:#e74c3c;">ลบ</a>
+                        </div>
                     </div>
                 `;
                 list.innerHTML += card;
             });
         } else {
-            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็น... เริ่มบทสนทนาเป็นคนแรกเลย!</p>`;
+            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็น...</p>`;
         }
     });
+}
+
+// --- ฟังก์ชันลบ ---
+function deleteComment(key, category) {
+    if (confirm("คุณแน่ใจใช่ไหมว่าจะลบข้อความนี้?")) {
+        database.ref('comments/' + category + '/' + key).remove()
+            .then(() => alert("ลบสำเร็จแล้วครับ"))
+            .catch(err => alert("เกิดข้อผิดพลาด: " + err.message));
+    }
+}
+
+// --- ฟังก์ชันแก้ไข ---
+function editComment(key, category) {
+    const oldText = document.getElementById('text-' + key).innerText;
+    const newText = prompt("แก้ไขข้อความของคุณ:", oldText);
+    
+    if (newText !== null && newText !== "") {
+        database.ref('comments/' + category + '/' + key).update({
+            text: newText,
+            date: new Date().toLocaleString('th-TH') + " (แก้ไขแล้ว)"
+        });
+    }
+}
+
+// --- ฟังก์ชันเตรียมตอบกลับ ---
+let replyTarget = null;
+function prepareReply(name) {
+    replyTarget = name;
+    const textInput = document.getElementById('comment-text');
+    textInput.placeholder = "กำลังตอบกลับคุณ " + name + "...";
+    textInput.focus();
+    // เลื่อนหน้าจอไปที่ช่องกรอก
+    textInput.scrollIntoView({ behavior: 'smooth' });
 }
 
 // 4. เรียกใช้งานครั้งแรกเมื่อโหลดหน้าเว็บ
