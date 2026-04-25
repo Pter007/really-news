@@ -325,3 +325,44 @@ strong {
   text-indent: 2em; /* ย่อหน้าบรรทัดแรกเข้าไป 2 ตัวอักษร */
   margin-bottom: 1.5em; /* เพิ่มช่องว่างระหว่างย่อหน้า */
   }
+.comment-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #333;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.comment-form input, .comment-form textarea {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.comment-form button {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.comment-card {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #e67e22;
+}
+
+.comment-card strong { color: #e67e22; display: block; margin-bottom: 5px; }
+.comment-card small { color: #666; font-size: 0.7rem; }
