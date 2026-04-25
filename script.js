@@ -8,6 +8,8 @@ if (!myDeviceId) {
 
 // กำหนดรหัสผ่านแอดมิน (คุณปีเตอร์เปลี่ยนเองได้เลย)
 const ADMIN_PASSWORD = "iluv_rustappen_4ever";
+const BANNED_WORDS = ["หี", "ควย", "แตด", "ภูมิพล" , "เหี้ย" , "แม่มึงตาย" , "พ่อมึงตาย"]; 
+
 // ==========================================
 // ส่วนที่ 2: ระบบจัดการการกดย้อนกลับ (History)
 // ==========================================
@@ -730,31 +732,43 @@ function prepareReply(name, parentKey, text) {
 function submitComment() {
     const nameInput = document.getElementById('comment-name');
     const textInput = document.getElementById('comment-text');
+    
+    const nameValue = nameInput.value.trim();
+    const textValue = textInput.value.trim();
+
+    // 1. เช็คว่ากรอกข้อมูลครบไหม
+    if (!nameValue || !textValue) {
+        alert("กรุณากรอกชื่อและข้อความให้ครบครับ");
+        return;
+    }
+
+    // 2. เช็คคำไม่เหมาะสมใน "ชื่อ" หรือ "ข้อความ"
+    if (containsBadWord(nameValue) || containsBadWord(textValue)) {
+        alert("🚨 พบข้อความที่ไม่เหมาะสม! กรุณาตรวจสอบและใช้คำสุภาพในการแสดงความคิดเห็นที่สาธารณะครับ");
+        return; // หยุดการทำงาน ไม่ส่งข้อมูลไป Firebase
+    }
+
     const category = (typeof currentArticleId !== 'undefined' && currentArticleId) ? currentArticleId : 'general';
 
-    if (nameInput.value && textInput.value) {
-        const commentData = {
-            name: nameInput.value,
-            text: textInput.value,
-            date: new Date().toLocaleString('th-TH'),
-            timestamp: Date.now(),
-            parentKey: currentReplyKey, // เป็น null ถ้าเป็นเม้นหลัก
-            quotedText: currentQuotedText, // เก็บข้อความที่อ้างอิงถึง
-            ownerId: myDeviceId // ระบุเจ้าของคอมเมนต์
-        };
+    // 3. ถ้าผ่านทุกด่าน ก็ส่งข้อมูลได้เลย
+    const commentData = {
+        name: nameValue,
+        text: textValue,
+        date: new Date().toLocaleString('th-TH'),
+        timestamp: Date.now(),
+        parentKey: currentReplyKey,
+        quotedText: currentQuotedText,
+        ownerId: myDeviceId
+    };
 
-        database.ref('comments/' + category).push(commentData).then(() => {
-            textInput.value = "";
-            textInput.placeholder = "พิมพ์ข้อความของคุณที่นี่...";
-            currentReplyKey = null;
-            currentQuotedText = "";
-            alert("ส่งความคิดเห็นเรียบร้อยแล้ว!");
-        });
-    } else {
-        alert("กรุณากรอกชื่อและข้อความให้ครบครับ");
-    }
+    database.ref('comments/' + category).push(commentData).then(() => {
+        textInput.value = "";
+        textInput.placeholder = "พิมพ์ข้อความของคุณที่นี่...";
+        currentReplyKey = null;
+        currentQuotedText = "";
+        alert("ส่งความคิดเห็นเรียบร้อยแล้ว!");
+    });
 }
-
 
 // ==========================================
 // 4. ฟังก์ชันจัดการข้อมูล (ลบ & แก้ไข)
@@ -845,6 +859,15 @@ function loadComments(articleId) {
         } else {
             list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีความคิดเห็น...</p>`;
         }
+    });
+}
+
+// ฟังก์ชันสำหรับเช็คว่ามีคำต้องห้ามไหม (คืนค่า true/false)
+function containsBadWord(text) {
+    // ใช้ .some() เพื่อเช็คว่ามีคำใดคำหนึ่งใน BANNED_WORDS อยู่ใน text ไหม
+    return BANNED_WORDS.some(word => {
+        const regex = new RegExp(word, 'gi');
+        return regex.test(text);
     });
 }
 
