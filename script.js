@@ -1,12 +1,13 @@
-// --- ส่วนที่ 1: ระบบจัดการการกดย้อนกลับ ---
+let currentArticleId = "";
+// ==========================================
+// ส่วนที่ 2: ระบบจัดการการกดย้อนกลับ (History)
+// ==========================================
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const cat = urlParams.get('cat');
     const id = urlParams.get('id');
 
     if (cat && id && newsLibrary[cat]) {
-        // เช็คใน Console ว่าค่ามาถูกต้องไหม
-        console.log("Loading News ID:", id); 
         openPage(cat, cat.toUpperCase(), true); 
         showFullArticle(cat, id, true);
     } else {
@@ -22,7 +23,6 @@ window.onpopstate = function(event) {
         } else if (event.state.page === 'category') {
             openPage(event.state.id, event.state.title, true);
         } else if (event.state.page === 'article') {
-            // เพิ่มส่วนนี้เพื่อให้เวลาย้อนกลับแล้วข่าวแสดงผล
             showFullArticle(event.state.catId, event.state.newsId, true);
         }
     }
@@ -419,7 +419,6 @@ const newsLibrary = {
             
             <div class="wet-notif">
               <strong>🌧️ สภาวะฝนตก:</strong> เพิ่มอุณหภูมิผ้าห่มยาง (Tyre Blanket) สำหรับยาง Intermediate เพื่อการยึดเกาะที่ดีขึ้นทันทีที่ออกจากพิต และปรับลดแรงบิด (Torque) จากระบบ ERS เพื่อการควบคุมรถที่แม่นยำขึ้น
-            </div>
           </div>
 
           <div class="quote-card">
@@ -536,10 +535,13 @@ const newsLibrary = {
 };
 
 // --- ส่วนที่ 3: ระบบเปิดหน้ารวมข่าว ---
-function openPage(categoryId, categoryTitle, isBack = false) {
+function openPage(categoryId, categoryTitle, isBack = false) 
+{
+  currentArticleId = categoryId;
     document.getElementById('home-page').classList.remove('active');
     document.getElementById('sub-page').classList.add('active');
     document.getElementById('sub-page-title').innerText = categoryTitle;
+ 
   
    setCurrentDate();
 
@@ -553,7 +555,7 @@ function openPage(categoryId, categoryTitle, isBack = false) {
         'space': "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000",
         'politics': "https://i.postimg.cc/Y04BHLbC/hq720-(2).jpg",
         'economy': "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000",
-        'education': "https://i.postimg.cc/tCWQNsLT/534d356b413450c4f2b6de5ce432e8ded0b194dc475190b6ef57b049dce68a87.jpg"
+    'education': "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1000" // เพิ่มบรรทัดนี้
     };
     newsImg.src = banners[categoryId] || banners['motorsport'];
 
@@ -585,10 +587,14 @@ reversedNews.forEach(news => {
     } else {
         html += `<p style="text-align:center; color:#888;">ขออภัย ไม่พบข้อมูลข่าวในขณะนี้</p>`;
     }
+  
     contentArea.innerHTML = html; // ต้องมั่นใจว่าบรรทัดนี้อยู่หลัง loop จบแล้ว
+currentArticleId = categoryId; // สั่งให้ระบบจำ ID หมวดหมู่ (เช่น 'motorsport')
+    loadComments(categoryId);      // สั่งดึงคอมเมนต์เฉพาะหมวดหมู่นี้มาแสดง
 }
 // --- ส่วนที่ 4: ระบบเปิดข่าวฉบับเต็ม ---
 function showFullArticle(catId, newsId, isBack = false) {
+    currentArticleId = newsId;
     const news = newsLibrary[catId].find(n => n.id === newsId);
     const contentArea = document.getElementById('dynamic-content');
   
@@ -607,6 +613,7 @@ if (!isBack) {
             <button class="back-to-list" onclick="goBack()">⬅ กลับไปหน้ารวมข่าว</button>
         </div>`;
     window.scrollTo(0, 0);
+   loadComments(newsId); 
 }
 
 // --- ส่วนที่ 5: ปุ่มกดย้อนกลับ ---
@@ -617,7 +624,7 @@ function goBack() {
     
     document.getElementById('sub-page').classList.remove('active');
     document.getElementById('home-page').classList.add('active');
-}
+  }
 // --- ส่วนที่ 6: ระบบนาฬิกา ---
 // --- ระบบนาฬิกา Digital Clock (Fixed) ---
 function updateClock() {
@@ -661,3 +668,80 @@ function setCurrentDate() {
 
 // เรียกใช้งานฟังก์ชัน
 setCurrentDate();
+
+ 
+// 1. ตั้งค่า Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDQ20ldwuupZxl5ycgkT6pBpxRU10vbCJI",
+  authDomain: "really-news.firebaseapp.com",
+  databaseURL: "https://really-news-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "really-news",
+  storageBucket: "really-news.firebasestorage.app",
+  messagingSenderId: "566871949404",
+  appId: "1:566871949404:web:a30b12be03cfea5adde699",
+  measurementId: "G-PPK41XT079"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// 2. ฟังก์ชันสำหรับ "ส่ง" ความคิดเห็น
+// (ใน HTML ของคุณใช้ชื่อ submitComment() ดังนั้นต้องใช้ชื่อนี้ครับ)
+function submitComment() {
+    const nameInput = document.getElementById('comment-name');
+    const textInput = document.getElementById('comment-text');
+    
+    // ตรวจสอบหมวดหมู่ปัจจุบัน ถ้าไม่มีให้เป็น general
+    const category = (typeof currentArticleId !== 'undefined' && currentArticleId) ? currentArticleId : 'general';
+
+    if (nameInput.value && textInput.value) {
+        database.ref('comments/' + category).push({
+            name: nameInput.value,
+            text: textInput.value,
+            date: new Date().toLocaleString('th-TH'),
+            timestamp: Date.now()
+        }).then(() => {
+            alert('ส่งความคิดเห็นในหมวด ' + category + ' เรียบร้อยแล้ว!');
+            textInput.value = ""; // ล้างช่องข้อความ
+        }).catch(error => {
+            alert("เกิดข้อผิดพลาด: " + error.message);
+        });
+    } else {
+        alert('กรุณากรอกชื่อและข้อความให้ครบถ้วนครับ');
+    }
+}
+
+// 3. ฟังก์ชันสำหรับ "ดึง" และ "แสดงผล" ความคิดเห็น
+function loadComments(articleId) {
+    const list = document.getElementById('comments-display'); 
+    if (!list) return;
+
+    // ถ้าไม่มี articleId ส่งมา ให้ใช้ 'general' เป็นค่าเริ่มต้น
+    const targetId = articleId || 'general';
+
+    list.innerHTML = `<p style="color: #666; text-align: center;">กำลังดึงข้อมูล...</p>`;
+
+    // เชื่อมต่อแบบ Realtime (ใช้ .on) เมื่อมีการส่งคอมเมนต์ใหม่จะเด้งขึ้นทันที
+    database.ref('comments/' + targetId).on('value', (snapshot) => {
+        const data = snapshot.val();
+        list.innerHTML = ""; 
+
+        if (data) {
+            Object.values(data).reverse().forEach(comment => {
+                const card = `
+                    <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:12px; border-left:4px solid #e67e22; text-align:left;">
+                        <strong style="color:#e67e22; display:block; margin-bottom:5px;">${comment.name}</strong>
+                        <span style="color:#888; font-size:0.7rem;">${comment.date || ''}</span>
+                        <p style="margin:8px 0 0; color:#ddd;">${comment.text}</p>
+                    </div>
+                `;
+                list.innerHTML += card;
+            });
+        } else {
+            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็นในหมวดนี้... เริ่มบทสนทนาเป็นคนแรกเลย!</p>`;
+        }
+    });
+}
+
+// 4. เรียกใช้งานครั้งแรกเมื่อโหลดหน้าเว็บ
+loadComments('general');
