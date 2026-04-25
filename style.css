@@ -325,44 +325,79 @@ strong {
   text-indent: 2em; /* ย่อหน้าบรรทัดแรกเข้าไป 2 ตัวอักษร */
   margin-bottom: 1.5em; /* เพิ่มช่องว่างระหว่างย่อหน้า */
   }
-.comment-section {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 1px solid #333;
-}
-
-.comment-form {
+/* กล่องคุมฟอร์ม (ย้ำอีกรอบเผื่อ CSS ไม่ทำงาน) */
+#comment-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 30px;
 }
 
-.comment-form input, .comment-form textarea {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    color: white;
-    padding: 12px;
-    border-radius: 8px;
-}
-
-.comment-form button {
-    background: #e67e22;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
+/* ปุ่มส่งความคิดเห็นแบบ "Minimal News Style" */
+.submit-btn {
+    align-self: flex-end; /* ขยับปุ่มไปทางขวา จะดูทางการกว่าเต็มความกว้าง */
+    padding: 10px 25px;
+    background: transparent; /* พื้นหลังโปร่งใส */
+    color: #e67e22; /* ตัวอักษรสีส้ม */
+    border: 1px solid #e67e22; /* เส้นขอบสีส้ม */
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    font-weight: bold;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
 }
 
-.comment-card {
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border-left: 4px solid #e67e22;
+.submit-btn:hover {
+    background: #e67e22; /* เวลาเอาเม้าส์ชี้ค่อยเปลี่ยนเป็นสีส้มทึบ */
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.2);
 }
 
-.comment-card strong { color: #e67e22; display: block; margin-bottom: 5px; }
-.comment-card small { color: #666; font-size: 0.7rem; }
+/* แถม: แต่ง Input ให้ดูคมขึ้น */
+#comment-name, #comment-text {
+    border: 1px solid #333 !important;
+    background: #111 !important;
+    transition: border-color 0.3s;
+}
+
+#comment-name:focus, #comment-text:focus {
+    border-color: #e67e22 !important; /* เวลาคลิกพิมพ์ให้ขอบเรืองแสงสีส้ม */
+    outline: none;
+}
+#comment-name, #comment-text {
+    border: 1px solid #333 !important;
+    background: #1a1a1a !important; /* ปรับให้อ่อนกว่าพื้นหลังเว็บนิดนึง จะดูมีมิติ */
+    color: #eee !important; /* แก้ปัญหาตัวหนังสือสีดำ */
+    padding: 12px 18px !important;
+    border-radius: 8px !important; /* เพิ่มความโค้งมนให้ดูไม่แข็ง */
+    font-size: 0.95rem;
+    transition: all 0.3s ease !important;
+}
+
+/* เพิ่ม Effect เวลาพิมพ์ให้ดูนุ่มนวล */
+#comment-name:focus, #comment-text:focus {
+    border-color: #e67e22 !important;
+    background: #222 !important; /* เปลี่ยนสีพื้นหลังนิดหน่อยเวลาพิมพ์ */
+    box-shadow: 0 0 8px rgba(230, 126, 34, 0.1); /* เพิ่มแสงเรืองๆ บางๆ */
+}
+.submit-btn {
+    align-self: flex-end;
+    padding: 10px 28px;
+    background: transparent;
+    color: #e67e22;
+    border: 1.5px solid #e67e22; /* หนาขึ้นนิดนึงให้ดูมั่นคง */
+    border-radius: 25px; /* เปลี่ยนเป็นทรงมนยาว (Pill shape) จะดูทันสมัยและซอฟต์ลง */
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase; /* ตัวพิมพ์ใหญ่ช่วยให้ดูเหมือนปุ่มข่าวทางการ */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* เพิ่มจังหวะการเด้งให้น่าสนใจ */
+}
+
+.submit-btn:hover {
+    background: #e67e22;
+    color: #fff;
+    transform: translateY(-2px); /* ลอยขึ้นนิดๆ เวลาชี้ */
+    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+}
