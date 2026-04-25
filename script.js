@@ -716,18 +716,21 @@ function loadComments(articleId) {
     const list = document.getElementById('comments-display'); 
     if (!list) return;
 
-    // ถ้าไม่มี articleId ส่งมา ให้ใช้ 'general' เป็นค่าเริ่มต้น
+    // ถ้าไม่มี articleId ให้ดึงจาก general
     const targetId = articleId || 'general';
+    list.innerHTML = `<p style="color: #666; text-align: center;">กำลังโหลดข้อคิดเห็น...</p>`;
 
-    list.innerHTML = `<p style="color: #666; text-align: center;">กำลังดึงข้อมูล...</p>`;
-
-    // เชื่อมต่อแบบ Realtime (ใช้ .on) เมื่อมีการส่งคอมเมนต์ใหม่จะเด้งขึ้นทันที
+    // ดึงข้อมูลจาก Path: comments/targetId
     database.ref('comments/' + targetId).on('value', (snapshot) => {
         const data = snapshot.val();
-        list.innerHTML = ""; 
+        list.innerHTML = ""; // ล้างหน้าจอเพื่อเตรียมลงข้อมูลใหม่
 
         if (data) {
-            Object.values(data).reverse().forEach(comment => {
+            // Firebase ส่ง data มาเป็น Object เราต้องเปลี่ยนเป็น Array ก่อน
+            const commentsArray = Object.values(data);
+            
+            // วนลูปแสดงผลทุกคน (ใช้ reverse เพื่อให้คนล่าสุดอยู่บนสุด)
+            commentsArray.reverse().forEach(comment => {
                 const card = `
                     <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:12px; border-left:4px solid #e67e22; text-align:left;">
                         <strong style="color:#e67e22; display:block; margin-bottom:5px;">${comment.name}</strong>
@@ -738,7 +741,7 @@ function loadComments(articleId) {
                 list.innerHTML += card;
             });
         } else {
-            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็นในหมวดนี้... เริ่มบทสนทนาเป็นคนแรกเลย!</p>`;
+            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็น... เริ่มบทสนทนาเป็นคนแรกเลย!</p>`;
         }
     });
 }
