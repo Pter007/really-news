@@ -1,4 +1,13 @@
 let currentArticleId = "";
+// สร้างหรือดึง ID ลับประจำเครื่อง (ถ้าไม่มีให้สร้างใหม่)
+let myDeviceId = localStorage.getItem('really_news_user_id');
+if (!myDeviceId) {
+    myDeviceId = 'user_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('really_news_user_id', myDeviceId);
+}
+
+// กำหนดรหัสผ่านแอดมิน (คุณปีเตอร์เปลี่ยนเองได้เลย)
+const ADMIN_PASSWORD = "iluv_rustappen_4ever";
 // ==========================================
 // ส่วนที่ 2: ระบบจัดการการกดย้อนกลับ (History)
 // ==========================================
@@ -503,7 +512,7 @@ const newsLibrary = {
       title: "การปรากฏตัวครั้งสุดท้าย: ดาวหาง C/2025 R3 เตรียมลาจากระบบสุริยะตลอดกาล",
       date: "17 April 2026",
       summary: "นักดาราศาสตร์ชี้ดาวหางคาบยาวเตรียมพ้นระบบสุริยะถาวร หลังรับแรงเหวี่ยงจากดาวพฤหัสบดี...",
-      img: "https://i.postimg.cc/9F8VLGRC/comet-c-2025-r3-panstarrs-v0-fcgl736cb6ug1.jpg",
+      img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1000",
       fullContent: `
         <p class="news-lead">การอำลาครั้งสุดท้ายของวัตถุโบราณชิ้นนี้ ก่อนที่จะถูกดีดออกจากระบบสุริยะอย่างถาวรในวันที่ 27 เมษายนนี้</p>
         
@@ -668,7 +677,6 @@ function setCurrentDate() {
 
 // เรียกใช้งานฟังก์ชัน
 setCurrentDate();
-// --- 1. ตั้งค่า Firebase (ตรวจสอบว่าไม่ประกาศซ้ำ) ---
 if (!firebase.apps.length) {
     const firebaseConfig = {
         apiKey: "AIzaSyDQ20ldwuupZxl5ycgkT6pBpxRU10vbCJI",
@@ -688,9 +696,28 @@ const database = firebase.database();
 let currentReplyKey = null; 
 let currentQuotedText = ""; 
 
-// --- 2. ฟังก์ชันเตรียมการตอบกลับ (Prepare Reply) ---
+
+// ==========================================
+// 2. ฟังก์ชันตรวจสอบสิทธิ์ (แอดมิน / เจ้าของคอมเมนต์)
+// ==========================================
+function hasPermission(ownerId) {
+    // 1. ถ้าเป็นเจ้าของเครื่องที่คอมเมนต์เอง
+    if (ownerId === myDeviceId) return true;
+
+    // 2. ถ้าไม่ใช่เจ้าของ ลองถามรหัสแอดมิน
+    const pass = prompt("คุณไม่ใช่เจ้าของข้อความนี้ กรุณากรอกรหัสผ่านแอดมิน:");
+    if (pass === ADMIN_PASSWORD) return true;
+
+    alert("คุณไม่มีสิทธิ์จัดการข้อความนี้");
+    return false;
+}
+
+
+// ==========================================
+// 3. ฟังก์ชันระบบคอมเมนต์ (เตรียมตอบกลับ & ส่งข้อมูล)
+// ==========================================
 function prepareReply(name, parentKey, text) {
-    currentReplyKey = parentKey; // ID ของเม้นหลัก (เพื่อให้เม้นย่อยเกาะกลุ่มที่เดิม)
+    currentReplyKey = parentKey; // ID ของเม้นหลัก 
     // ตัดข้อความอ้างอิงให้สั้นลง
     currentQuotedText = text.length > 40 ? text.substring(0, 40) + "..." : text;
     
@@ -700,7 +727,6 @@ function prepareReply(name, parentKey, text) {
     textInput.scrollIntoView({ behavior: 'smooth' });
 }
 
-// --- 3. ฟังก์ชันส่งความคิดเห็น (Submit) ---
 function submitComment() {
     const nameInput = document.getElementById('comment-name');
     const textInput = document.getElementById('comment-text');
@@ -713,11 +739,11 @@ function submitComment() {
             date: new Date().toLocaleString('th-TH'),
             timestamp: Date.now(),
             parentKey: currentReplyKey, // เป็น null ถ้าเป็นเม้นหลัก
-            quotedText: currentQuotedText // เก็บข้อความที่อ้างอิงถึง
+            quotedText: currentQuotedText, // เก็บข้อความที่อ้างอิงถึง
+            ownerId: myDeviceId // ระบุเจ้าของคอมเมนต์
         };
 
         database.ref('comments/' + category).push(commentData).then(() => {
-            // ล้างค่าหลังส่งเสร็จ
             textInput.value = "";
             textInput.placeholder = "พิมพ์ข้อความของคุณที่นี่...";
             currentReplyKey = null;
@@ -729,7 +755,36 @@ function submitComment() {
     }
 }
 
-// --- 4. ฟังก์ชันแสดงผล (Load & Render) ---
+
+// ==========================================
+// 4. ฟังก์ชันจัดการข้อมูล (ลบ & แก้ไข)
+// ==========================================
+function deleteComment(key, category, ownerId) {
+    if (hasPermission(ownerId)) {
+        if (confirm("คุณแน่ใจใช่ไหมว่าจะลบข้อความนี้?")) {
+            database.ref('comments/' + category + '/' + key).remove();
+        }
+    }
+}
+
+function editComment(key, category, ownerId) {
+    if (hasPermission(ownerId)) {
+        const textElement = document.getElementById('text-' + key);
+        const oldText = textElement.innerText;
+        const newText = prompt("แก้ไขข้อความของคุณ:", oldText);
+        if (newText && newText !== oldText) {
+            database.ref('comments/' + category + '/' + key).update({
+                text: newText,
+                date: new Date().toLocaleString('th-TH') + " (แก้ไขแล้ว)"
+            });
+        }
+    }
+}
+
+
+// ==========================================
+// 5. ฟังก์ชันดึงข้อมูลและแสดงผลหน้าเว็บ
+// ==========================================
 function loadComments(articleId) {
     const list = document.getElementById('comments-display'); 
     const targetId = articleId || 'general';
@@ -752,6 +807,7 @@ function loadComments(articleId) {
 
                 let replyHtml = "";
                 replies.forEach(reply => {
+                    // ส่วนแสดงผลเม้นย่อย สังเกตว่าผมใส่ reply.ownerId เข้าไปในปุ่มกดให้แล้ว
                     replyHtml += `
                         <div class="reply-card" style="margin-left: 40px; background:#222; padding:12px; border-radius:8px; margin-top:10px; border-left:3px solid #555;">
                             <div style="background:#333; padding:5px 10px; border-radius:4px; font-size:0.75rem; color:#888; margin-bottom:8px; border-left:2px solid #e67e22;">
@@ -763,13 +819,13 @@ function loadComments(articleId) {
                             
                             <div style="font-size:0.7rem;">
                                 <a href="javascript:void(0)" onclick="prepareReply('${reply.name}', '${main.key}', '${reply.text}')" style="color:#3498db; margin-right:10px;">ตอบกลับ</a>
-                                <a href="javascript:void(0)" onclick="editComment('${reply.key}', '${targetId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
-                                <a href="javascript:void(0)" onclick="deleteComment('${reply.key}', '${targetId}')" style="color:#e74c3c;">ลบ</a>
+                                <a href="javascript:void(0)" onclick="editComment('${reply.key}', '${targetId}', '${reply.ownerId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
+                                <a href="javascript:void(0)" onclick="deleteComment('${reply.key}', '${targetId}', '${reply.ownerId}')" style="color:#e74c3c;">ลบ</a>
                             </div>
                         </div>`;
                 });
 
-                // การแสดงผลเม้นหลัก
+                // ส่วนแสดงผลเม้นหลัก สังเกตว่าผมใส่ main.ownerId เข้าไปในปุ่มกดให้แล้ว
                 const mainCard = `
                     <div class="comment-group" style="margin-bottom: 30px;">
                         <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; border-left:4px solid #e67e22;">
@@ -777,8 +833,8 @@ function loadComments(articleId) {
                             <p id="text-${main.key}" style="color:#ddd; margin:10px 0;">${main.text}</p>
                             <div class="comment-actions" style="font-size:0.8rem;">
                                 <a href="javascript:void(0)" onclick="prepareReply('${main.name}', '${main.key}', '${main.text}')" style="color:#3498db; margin-right:10px;">ตอบกลับ</a>
-                                <a href="javascript:void(0)" onclick="editComment('${main.key}', '${targetId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
-                                <a href="javascript:void(0)" onclick="deleteComment('${main.key}', '${targetId}')" style="color:#e74c3c;">ลบ</a>
+                                <a href="javascript:void(0)" onclick="editComment('${main.key}', '${targetId}', '${main.ownerId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
+                                <a href="javascript:void(0)" onclick="deleteComment('${main.key}', '${targetId}', '${main.ownerId}')" style="color:#e74c3c;">ลบ</a>
                             </div>
                         </div>
                         <div class="replies-container">${replyHtml}</div>
@@ -787,30 +843,10 @@ function loadComments(articleId) {
                 list.innerHTML += mainCard;
             });
         } else {
-            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็น...</p>`;
+            list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีความคิดเห็น...</p>`;
         }
     });
 }
 
-// --- 5. ฟังก์ชันจัดการข้อมูลอื่นๆ ---
-function deleteComment(key, category) {
-    if (confirm("คุณแน่ใจใช่ไหมว่าจะลบข้อความนี้?")) {
-        database.ref('comments/' + category + '/' + key).remove();
-    }
-}
-
-function editComment(key, category) {
-    const textElement = document.getElementById('text-' + key);
-    if(!textElement) return;
-    const oldText = textElement.innerText;
-    const newText = prompt("แก้ไขข้อความของคุณ:", oldText);
-    if (newText && newText !== oldText) {
-        database.ref('comments/' + category + '/' + key).update({
-            text: newText,
-            date: new Date().toLocaleString('th-TH') + " (แก้ไขแล้ว)"
-        });
-    }
-}
-
-// เริ่มโหลดข้อมูล
+// เริ่มต้นโหลดคอมเมนต์
 loadComments('general');
