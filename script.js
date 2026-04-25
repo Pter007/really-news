@@ -668,25 +668,39 @@ function setCurrentDate() {
 
 // เรียกใช้งานฟังก์ชัน
 setCurrentDate();
-
- 
-// 1. ตั้งค่า Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDQ20ldwuupZxl5ycgkT6pBpxRU10vbCJI",
-  authDomain: "really-news.firebaseapp.com",
-  databaseURL: "https://really-news-default-rtdb.asia-southeast1.firebasedatabase.app/",
-  projectId: "really-news",
-  storageBucket: "really-news.firebasestorage.app",
-  messagingSenderId: "566871949404",
-  appId: "1:566871949404:web:a30b12be03cfea5adde699",
-  measurementId: "G-PPK41XT079"
-};
-
-firebase.initializeApp(firebaseConfig);
+// --- 1. ตั้งค่า Firebase (ตรวจสอบว่าไม่ประกาศซ้ำ) ---
+if (!firebase.apps.length) {
+    const firebaseConfig = {
+        apiKey: "AIzaSyDQ20ldwuupZxl5ycgkT6pBpxRU10vbCJI",
+        authDomain: "really-news.firebaseapp.com",
+        databaseURL: "https://really-news-default-rtdb.asia-southeast1.firebasedatabase.app/",
+        projectId: "really-news",
+        storageBucket: "really-news.firebasestorage.app",
+        messagingSenderId: "566871949404",
+        appId: "1:566871949404:web:a30b12be03cfea5adde699",
+        measurementId: "G-PPK41XT079"
+    };
+    firebase.initializeApp(firebaseConfig);
+}
 const database = firebase.database();
 
-// 2. ฟังก์ชันสำหรับ "ส่ง" ความคิดเห็น
-// (ใน HTML ของคุณใช้ชื่อ submitComment() ดังนั้นต้องใช้ชื่อนี้ครับ)
+// ตัวแปรควบคุมการตอบกลับ
+let currentReplyKey = null; 
+let currentQuotedText = ""; 
+
+// --- 2. ฟังก์ชันเตรียมการตอบกลับ (Prepare Reply) ---
+function prepareReply(name, parentKey, text) {
+    currentReplyKey = parentKey; // ID ของเม้นหลัก (เพื่อให้เม้นย่อยเกาะกลุ่มที่เดิม)
+    // ตัดข้อความอ้างอิงให้สั้นลง
+    currentQuotedText = text.length > 40 ? text.substring(0, 40) + "..." : text;
+    
+    const textInput = document.getElementById('comment-text');
+    textInput.placeholder = `ตอบกลับคุณ ${name}: "${currentQuotedText}"`;
+    textInput.focus();
+    textInput.scrollIntoView({ behavior: 'smooth' });
+}
+
+// --- 3. ฟังก์ชันส่งความคิดเห็น (Submit) ---
 function submitComment() {
     const nameInput = document.getElementById('comment-name');
     const textInput = document.getElementById('comment-text');
@@ -697,52 +711,80 @@ function submitComment() {
             name: nameInput.value,
             text: textInput.value,
             date: new Date().toLocaleString('th-TH'),
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            parentKey: currentReplyKey, // เป็น null ถ้าเป็นเม้นหลัก
+            quotedText: currentQuotedText // เก็บข้อความที่อ้างอิงถึง
         };
 
-        // ถ้ามีการตอบกลับ ให้เพิ่มฟิลด์ replyTo เข้าไปด้วย
-        if (replyTarget) {
-            commentData.replyTo = replyTarget;
-        }
-
         database.ref('comments/' + category).push(commentData).then(() => {
+            // ล้างค่าหลังส่งเสร็จ
             textInput.value = "";
             textInput.placeholder = "พิมพ์ข้อความของคุณที่นี่...";
-            replyTarget = null; // รีเซ็ตเป้าหมายการตอบกลับ
+            currentReplyKey = null;
+            currentQuotedText = "";
+            alert("ส่งความคิดเห็นเรียบร้อยแล้ว!");
         });
     } else {
-        alert("กรุณากรอกข้อมูลให้ครบครับ");
+        alert("กรุณากรอกชื่อและข้อความให้ครบครับ");
     }
 }
-// 3. ฟังก์ชันสำหรับ "ดึง" และ "แสดงผล" ความคิดเห็น
+
+// --- 4. ฟังก์ชันแสดงผล (Load & Render) ---
 function loadComments(articleId) {
     const list = document.getElementById('comments-display'); 
     const targetId = articleId || 'general';
     
-    // ดึงข้อมูลจาก Firebase
     database.ref('comments/' + targetId).on('value', (snapshot) => {
         const data = snapshot.val();
         list.innerHTML = ""; 
 
         if (data) {
-            // ใช้ Object.entries เพื่อดึงทั้ง Key (ไอดี) และ Value (เนื้อหา)
-            Object.entries(data).reverse().forEach(([key, comment]) => {
-                const isReply = comment.replyTo ? 'margin-left: 30px; border-left: 2px solid #555;' : '';
-                
-                const card = `
-                    <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:12px; border-left:4px solid #e67e22; ${isReply}">
-                        <strong style="color:#e67e22;">${comment.name}</strong>
-                        ${comment.replyTo ? `<small style="color:#888;"> ตอบกลับถึงคุณ ${comment.replyTo}</small>` : ''}
-                        <p id="text-${key}" style="color:#ddd; margin:10px 0;">${comment.text}</p>
-                        
-                        <div class="comment-actions" style="font-size:0.8rem;">
-                            <a href="javascript:void(0)" onclick="prepareReply('${comment.name}')" style="color:#3498db; margin-right:10px;">ตอบกลับ</a>
-                            <a href="javascript:void(0)" onclick="editComment('${key}', '${targetId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
-                            <a href="javascript:void(0)" onclick="deleteComment('${key}', '${targetId}')" style="color:#e74c3c;">ลบ</a>
+            const allComments = Object.entries(data).map(([key, val]) => ({ key, ...val }));
+            
+            // แยกเม้นหลัก (ไม่มี parentKey) เรียง ใหม่ -> เก่า
+            const mainComments = allComments.filter(c => !c.parentKey).reverse();
+
+            mainComments.forEach(main => {
+                // หาเม้นตอบย่อยที่เกาะกับเม้นหลักนี้ เรียง เก่า -> ใหม่
+                const replies = allComments
+                    .filter(c => c.parentKey === main.key)
+                    .sort((a, b) => a.timestamp - b.timestamp);
+
+                let replyHtml = "";
+                replies.forEach(reply => {
+                    replyHtml += `
+                        <div class="reply-card" style="margin-left: 40px; background:#222; padding:12px; border-radius:8px; margin-top:10px; border-left:3px solid #555;">
+                            <div style="background:#333; padding:5px 10px; border-radius:4px; font-size:0.75rem; color:#888; margin-bottom:8px; border-left:2px solid #e67e22;">
+                                <i style="display:block;">อ้างอิง: "${reply.quotedText}"</i>
+                            </div>
+                            
+                            <strong style="color:#ddd; font-size:0.9rem;">${reply.name}</strong>
+                            <p id="text-${reply.key}" style="color:#bbb; margin:5px 0; font-size:0.85rem;">${reply.text}</p>
+                            
+                            <div style="font-size:0.7rem;">
+                                <a href="javascript:void(0)" onclick="prepareReply('${reply.name}', '${main.key}', '${reply.text}')" style="color:#3498db; margin-right:10px;">ตอบกลับ</a>
+                                <a href="javascript:void(0)" onclick="editComment('${reply.key}', '${targetId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
+                                <a href="javascript:void(0)" onclick="deleteComment('${reply.key}', '${targetId}')" style="color:#e74c3c;">ลบ</a>
+                            </div>
+                        </div>`;
+                });
+
+                // การแสดงผลเม้นหลัก
+                const mainCard = `
+                    <div class="comment-group" style="margin-bottom: 30px;">
+                        <div class="comment-card" style="background:#1a1a1a; padding:15px; border-radius:8px; border-left:4px solid #e67e22;">
+                            <strong style="color:#e67e22;">${main.name}</strong>
+                            <p id="text-${main.key}" style="color:#ddd; margin:10px 0;">${main.text}</p>
+                            <div class="comment-actions" style="font-size:0.8rem;">
+                                <a href="javascript:void(0)" onclick="prepareReply('${main.name}', '${main.key}', '${main.text}')" style="color:#3498db; margin-right:10px;">ตอบกลับ</a>
+                                <a href="javascript:void(0)" onclick="editComment('${main.key}', '${targetId}')" style="color:#f1c40f; margin-right:10px;">แก้ไข</a>
+                                <a href="javascript:void(0)" onclick="deleteComment('${main.key}', '${targetId}')" style="color:#e74c3c;">ลบ</a>
+                            </div>
                         </div>
+                        <div class="replies-container">${replyHtml}</div>
                     </div>
                 `;
-                list.innerHTML += card;
+                list.innerHTML += mainCard;
             });
         } else {
             list.innerHTML = `<p style="color: #666; text-align: center;">ยังไม่มีข้อคิดเห็น...</p>`;
@@ -750,21 +792,19 @@ function loadComments(articleId) {
     });
 }
 
-// --- ฟังก์ชันลบ ---
+// --- 5. ฟังก์ชันจัดการข้อมูลอื่นๆ ---
 function deleteComment(key, category) {
     if (confirm("คุณแน่ใจใช่ไหมว่าจะลบข้อความนี้?")) {
-        database.ref('comments/' + category + '/' + key).remove()
-            .then(() => alert("ลบสำเร็จแล้วครับ"))
-            .catch(err => alert("เกิดข้อผิดพลาด: " + err.message));
+        database.ref('comments/' + category + '/' + key).remove();
     }
 }
 
-// --- ฟังก์ชันแก้ไข ---
 function editComment(key, category) {
-    const oldText = document.getElementById('text-' + key).innerText;
+    const textElement = document.getElementById('text-' + key);
+    if(!textElement) return;
+    const oldText = textElement.innerText;
     const newText = prompt("แก้ไขข้อความของคุณ:", oldText);
-    
-    if (newText !== null && newText !== "") {
+    if (newText && newText !== oldText) {
         database.ref('comments/' + category + '/' + key).update({
             text: newText,
             date: new Date().toLocaleString('th-TH') + " (แก้ไขแล้ว)"
@@ -772,16 +812,5 @@ function editComment(key, category) {
     }
 }
 
-// --- ฟังก์ชันเตรียมตอบกลับ ---
-let replyTarget = null;
-function prepareReply(name) {
-    replyTarget = name;
-    const textInput = document.getElementById('comment-text');
-    textInput.placeholder = "กำลังตอบกลับคุณ " + name + "...";
-    textInput.focus();
-    // เลื่อนหน้าจอไปที่ช่องกรอก
-    textInput.scrollIntoView({ behavior: 'smooth' });
-}
-
-// 4. เรียกใช้งานครั้งแรกเมื่อโหลดหน้าเว็บ
+// เริ่มโหลดข้อมูล
 loadComments('general');
