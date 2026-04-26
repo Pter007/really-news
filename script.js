@@ -8,7 +8,7 @@ if (!myDeviceId) {
 
 // กำหนดรหัสผ่านแอดมิน (คุณปีเตอร์เปลี่ยนเองได้เลย)
 const ADMIN_PASSWORD = "iluv_rustappen_4ever";
-const BANNED_WORDS = ["หี", "ควย", "แตด", "ภูมิพล" , "เหี้ย" , "แม่มึงตาย" , "พ่อมึงตาย" , "กาก" , "ปัญญาอ่อน" , "ปัญญานิ่ม" , "โง่" , "ไร้สาระ"]; 
+const BANNED_WORDS = ["หี", "ควย", "แตด", "ภูมิพล" , "เหี้ย" , "แม่มึงตาย" , "พ่อมึงตาย"]; 
 
 // ==========================================
 // ส่วนที่ 2: ระบบจัดการการกดย้อนกลับ (History)
@@ -439,6 +439,44 @@ const newsLibrary = {
           <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 40px;">แปลและเรียบเรียงโดย: Pter | แหล่งข้อมูลอ้างอิง: FIA WMSC</p>
           </div>
         </div>
+      `
+    },
+    {
+      id: 'miami-gp-fp1-extension-2026',
+      title: "ประกาศเรื่องการขยายเวลาช่วง Free Practice ครั้งที่ 1 ในรายการ Miami Grand Prix",
+      date: "23 April 2026",
+      summary: "FIA มติเห็นชอบขยายเวลา FP1 เป็น 90 นาที เพื่อรองรับกฎเทคนิคใหม่และรูปแบบ Sprint Weekend ที่มีเวลาซ้อมจำกัด",
+      img: "https://i.postimg.cc/bYbcw8Wp/miami-breaking-16x9-f126.png", // อย่าลืมเช็คชื่อไฟล์หรือลิงก์รูปภาพนะครับ
+fullContent: `
+        <p class="news-lead">ภายหลังจากการปรึกษาหารือร่วมกับผู้มีส่วนได้ส่วนเสียทุกภาคส่วน ได้มีมติเห็นชอบให้ขยายระยะเวลาของช่วง Free Practice 1 ในรายการ Miami Grand Prix ออกเป็น 90 นาที</p>
+        
+        <div style="margin: 20px 0; border-radius: 8px; overflow: hidden; border: 1px solid #333;">
+            <img src="https://i.postimg.cc/7Z5NqPts/f1-start-times-16x9-1.jpg" style="width: 100%; display: block;" alt="Miami GP Schedule Update">
+            <p style="font-size: 0.75rem; color: #666; padding: 10px; margin: 0; background: #111; text-align: center;">ตารางเวลาเริ่มต้นการแข่งขันรายการ Miami Grand Prix 2026</p>
+        </div>
+
+<div style="background: #1a1a1a; border-left: 4px solid #e67e22; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+            <h3 style="color: #e67e22; margin-top: 0;">⏱️ ตารางเวลาใหม่ (Local Time)</h3>
+            <ul style="list-style: none; padding-left: 0; color: #eee;">
+                <li><strong>FP1 :</strong> 12:00 น. ถึง 13:30 น. (ตามเวลาท้องถิ่น) </li>
+                <li><strong>กิจกรรมอื่นๆ บนสนาม :</strong> ปรับให้เร็วขึ้น 30 นาที (ก่อนช่วง FP1)</li>
+            </ul>
+        </div>
+
+        <p>การตัดสินใจดังกล่าวมีขึ้นเพื่อรองรับปัจจัยสำคัญหลายประการ ได้แก่:</p>
+        <ul>
+            <li>ช่วงระยะเวลาเว้นว่างจากการแข่งขันสนามล่าสุด</li>
+            <li>การปรับปรุงกฎระเบียบและข้อกำหนดทางเทคนิคปี 2026 ที่เพิ่งประกาศไป</li>
+            <li>การแข่งขันรายการ Miami Grand Prix ดำเนินการภายใต้รูปแบบ <strong>Sprint</strong> ซึ่งทำให้มีเวลาซ้อมจำกัดกว่าปกติ</li>
+        </ul>
+
+        <p>การขยายเวลาครั้งนี้จะช่วยให้นักขับและทีมช่างมีเวลาในการปรับจูนเครื่องยนต์ไฮบริดรุ่นใหม่ให้เข้ากับสภาพแทร็กที่ไมอามี่ได้ดียิ่งขึ้น ก่อนที่จะเข้าสู่ช่วงการแข่งขันจริงในวันถัดไป</p>
+
+        <div class="quote-card">
+          "เวลาเพิ่มขึ้นอีก 30 นาที อาจดูเหมือนน้อย แต่สำหรับ Sprint Weekend มันคือโอกาสทองในการหาจุดลงตัวของระบบ Active Aerodynamics"
+        </div>
+
+        <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 40px;">เรียบเรียงโดย: Pter | ข้อมูลอ้างอิง: FIA Motorsport Council</p>
       `
     },
   ],
