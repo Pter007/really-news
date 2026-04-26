@@ -479,6 +479,77 @@ fullContent: `
         <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 40px;">เรียบเรียงโดย: Pter | ข้อมูลอ้างอิง: FIA Motorsport Council</p>
       `
     },
+{
+      id: 'wrc-islas-canarias-2026-day2',
+      title: "โอจิเยร์ นำโซลเบิร์ก 3.8 วินาที เข้าสู่รอบสุดท้ายของแรลลี่ อิสลัส กานาเรียส",
+      date: "26 April 2026",
+      summary: "ศึกทางเรียบสุดหิน! Sébastien Ogier เจอกดดันหนักหลัง Oliver Solberg ไล่จี้เหลือไม่ถึง 4 วินาที ก่อนดวล 4 Stages สุดท้ายวันอาทิตย์นี้",
+      img: "https://i.postimg.cc/D0mtFk9B/si202604250735.jpg", 
+      fullContent: `
+        <p class="news-lead">เซบาสเตียน โอจิเยร์ (Sébastien Ogier) เตรียมรั้งตำแหน่งผู้นำด้วยระยะห่างเพียง 3.8 วินาที เหนือโอลิเวอร์ โซลเบิร์ก (Oliver Solberg) ในการแข่งขันวันสุดท้ายของรายการ Rally Islas Canarias ภายหลังจากจบการแข่งขันวันเสาร์อันดุเดือด</p>
+        
+        <div class="reg-section" style="border-left-color: #f1c40f;">
+            <h3>📊 สรุปอันดับผู้นำ (Overall Standings)</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0; background: #222; color: #ddd;">
+                <tr style="background: #333; color: #fff;">
+                    <th style="padding: 10px; border: 1px solid #444; text-align: left;">อันดับ</th>
+                    <th style="padding: 10px; border: 1px solid #444; text-align: left;">นักขับ / รถ</th>
+                    <th style="padding: 10px; border: 1px solid #444; text-align: right;">Gap</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">🥇 1.</td>
+                    <td style="padding: 10px; border: 1px solid #444;">S. Ogier (Toyota GR Yaris)</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: right;">-</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">🥈 2.</td>
+                    <td style="padding: 10px; border: 1px solid #444;">O. Solberg (Skoda Fabia RS)</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: right;">+3.8s</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">🥉 3.</td>
+                    <td style="padding: 10px; border: 1px solid #444;">E. Evans (Toyota GR Yaris)</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: right;">+21.9s</td>
+                </tr>
+            </table>
+            <p style="font-size: 0.85rem; color: #888;">*อันดับ 4-5: Sami Pajari และ Takamoto Katsuta</p>
+        </div>
+
+        <p>โอจิเยร์เริ่มออกสตาร์ทวันเสาร์ด้วยความได้เปรียบ 8.9 วินาที อย่างไรก็ตาม โซลเบิร์กสามารถทำเวลาไล่จี้ลดช่องว่างลงได้อย่างต่อเนื่องตลอด 6 สเตจ โดยเฉพาะการคว้าชัยในสเตจ <strong>Moya - Gáldar</strong> ได้ทั้งสองรอบ ส่งผลให้การชิงแชมป์ยังคงสูสีอย่างมากก่อนเข้าสู่ 4 สเตจสุดท้ายในวันอาทิตย์</p>
+
+        <h3>🌧️ สภาวะการแข่งขันที่ท้าทาย</h3>
+        <p>ช่วงเช้าสภาพอากาศที่มีฝนตกและถนนที่เปียกชื้นทำให้การแข่งขันเป็นไปอย่างยากลำบาก โดยเฉพาะระดับการยึดเกาะ (Grip levels) ที่เปลี่ยนแปลงอย่างรวดเร็ว โซลเบิร์กโต้กลับในการวิ่งรอบแรกของ Moya - Gáldar โดยทำเวลาเฉือนโอจิเยร์ไปเพียง 0.1 วินาที แม้ว่าจะมีการเฉี่ยวชนเล็กน้อยกับที่กั้นทาง (Armco) ก็ตาม</p>
+
+<div class="quote-card" style="border-left-color: #e67e22;">
+            "ถ้าคุณไม่ชอบการต่อสู้ที่สูสีแบบนี้ ก็ไม่รู้จะมาแข่งทำไม สู้เรานอนอยู่บ้านดีกว่า" 
+            <br>— <strong>Sébastien Ogier</strong> กล่าวอย่างอารมณ์ดีหลังจบวัน
+        </div>
+
+        <h3>📝 สรุปเหตุการณ์สำคัญ</h3>
+        <ul>
+            <li><strong>M-Sport Ford :</strong> Jon Armstrong หลุดโค้งจนรถเสียหาย แต่ได้ผู้ชมช่วยดันกลับเข้าเส้นทาง</li>
+            <li><strong>WRC2 :</strong> Yohan Rossel (Lancia) ยังคุมเกมนำอยู่ 27.5 วินาที</li>
+            <li><strong>อันดับ 6-8 :</strong> Adrien Fourmaux นำหน้า Dani Sordo และ Thierry Neuville</li>
+        </ul>
+
+        <div style="margin: 30px 0; padding: 20px; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; text-align: center;">
+            <p style="color: #fff; font-weight: bold; margin-bottom: 15px;">📺 ติดตามไฮไลท์ย้อนหลังและไลฟ์สด</p>
+            <a href="https://youtube.com/@wrc?si=u1fSri1wrFSKwlbl" target="_blank" 
+               style="display: inline-flex; align-items: center; gap: 10px; background: #ff0000; color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+               WATCH ON WRC YOUTUBE
+            </a>
+        </div>
+
+        <div style="background: rgba(230, 126, 34, 0.1); border: 1px dashed #e67e22; padding: 20px; border-radius: 8px; margin-top: 30px;">
+
+            <p style="font-style: italic; color: #eee; margin-bottom: 0;">
+                "ถือว่า Ogier เจอเด็กนรกอย่าง Solberg ไล่จี้ได้เสียวไส้สุดๆ ยิ่งสไตล์ Ogier ชอบความท้าทายแบบนี้ ยิ่งทำให้น่าติดตามว่าพรุ่งนี้แกจะงัดไม้ตายอะไรมาปิดเกมอีก"
+            </p>
+        </div>
+
+        <p style="text-align: center; color: #666; font-size: 0.8rem; margin-top: 40px;">เรียบเรียงโดย: Pter | แหล่งข้อมูล: WRC Official</p>
+      `
+    },
   ],
   'politics': [
     {
